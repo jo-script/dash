@@ -16,18 +16,24 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+*{
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+body{
+  padding-top: 80px;
+  padding-right: 250px;
+}
+
+@media screen and (max-width: 1024px){
+  body{
+    padding-right: 0;
   }
+}
+
+
+.linksOrder::-webkit-scrollbar{
+  width: 0;
+  height: 0;
 }
