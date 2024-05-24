@@ -67,7 +67,7 @@ const [chartData, setChartData] = useState({
 
   return (
     <div className="w-full flex flex-col items-start  gap-10 mt-8 pr-8 max-[500px]:px-0  max-[500px]:justify-center " style={{ direction: 'rtl' }}>
-      <div className="flex items-start flex-wrap gap-2">
+      <div className="flex items-start flex-wrap gap-2 max-[500px]:justify-center">
         {/* Sales statistics  */}
         <div className="max-[500px]:w-[350px]">
           <h1 className="text-[#142433] text-[24px] font-semibold">احصائيات المبيعات</h1>
@@ -151,10 +151,10 @@ const [chartData, setChartData] = useState({
       </div>
 
 
-      <div className='w-full' style={{ direction: 'rtl' }}>
-        <h1 className="text-[#142433] text-[24px] font-semibold">. الطلبات</h1>
+      <div className='w-full max-[500px]:justify-center' style={{ direction: 'rtl' }}>
+        <h1 className="text-[#142433] text-[24px] font-semibold">الطلبات</h1>
 
-        <div className="w-full mt-3 flex flex-wrap gap-3 max-[580px]:px-[5%]">
+        <div className="w-full mt-3 flex flex-wrap gap-3 max-[580px]:px-[5%] max-[500px]:justify-center">
           {/* // Create an order card by looping a variable orderCard */}
           {
             orderCard.map((data, index) => (
