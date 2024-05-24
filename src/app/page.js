@@ -81,7 +81,7 @@ export default function Home() {
               </div>
             </div>
             <div className="max-[500px]:w-full">
-              <h3 className="text-[#142433] font-bold text-[16px]" عدد العملاء</h3>
+              <h3 className="text-[#142433] font-bold text-[16px]"> عدد العملاء</h3>
               <div className="w-[267px] max-[500px]:w-full max-[500px]:pr-3 h-[113px] bg-white mt-[8px] rounded-md flex flex-col items-center justify-around">
                 <div className=" max-[500px]:w-full flex items-center gap-1">
                   <h1 className="text-[#224971] text-[40px] font-bold">465</h1>
