@@ -1,11 +1,12 @@
 import React from 'react'
 
-function Delivered() {
+import Delivered from '../../components/delivered.js'
+function page() {
   return (
     <div>
-      Delivered
+      <Delivered />
     </div>
   )
 }
 
-export default Delivered
+export default page

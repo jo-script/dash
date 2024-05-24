@@ -1,11 +1,14 @@
-import React from 'react'
+'use client'
+import React, { useEffect } from 'react'
+import NewOrder from '../../components/newOrder.js'
 
-function NewOrder() {
+
+function page() {
   return (
     <div>
-      new order
+      <NewOrder />
     </div>
   )
 }
 
-export default NewOrder
+export default page

@@ -1,8 +1,8 @@
-import { Cairo, Inter } from "next/font/google";
+import { Cairo, Inter, Tajawal } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 
-const cairo = Cairo({ subsets: ["arabic"] });
+const tajawal = Tajawal({ subsets: ["arabic"], weight:'400' });
 
 export const metadata = {
   title: "Merchant Dashboard",
@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={cairo.className}>
+      <body className={tajawal.className}>
         <Navbar />
         {children}</body>
     </html>

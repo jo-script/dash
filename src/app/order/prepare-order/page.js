@@ -1,9 +1,10 @@
+import PrepareOrder from '@/app/components/prepare-order'
 import React from 'react'
 
-function PrepareOrder() {
+function page() {
   return (
     <div>
-      PrepareOrder
+      <PrepareOrder />
     </div>
   )
 }

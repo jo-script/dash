@@ -1,11 +1,13 @@
+import CanceledOrder from '@/app/components/canceledOrder'
 import React from 'react'
 
-function CanceledOrder() {
+function page() {
   return (
     <div>
-      Canceled order
+
+      <CanceledOrder />
     </div>
   )
 }
 
-export default CanceledOrder
+export default page
