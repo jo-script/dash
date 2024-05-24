@@ -23,18 +23,18 @@ export default function Home() {
 
   const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-const [chartData, setChartData] = useState({
-  options1: {
-    colors: ['#faa000', '#00E396', '#775DD0', '#FEB019', '#008FFB'], // Custom colors for the first chart
-    labels: ['A', 'B', 'C', 'D', 'E'],
-    chart: {
-      fontFamily: 'Helvetica, Arial, sans-serif', // Setting the font style for the chart
-      foreColor: '#333333', // Setting the font color for the chart
-      fontSize: '30px' // Setting the font size for the chart
-    }
-  },
-  series1: [44, 55, 41, 17, 44],
-})
+  const [chartData, setChartData] = useState({
+    options1: {
+      colors: ['#faa000', '#00E396', '#775DD0', '#FEB019', '#008FFB'], // Custom colors for the first chart
+      labels: ['A', 'B', 'C', 'D', 'E'],
+      chart: {
+        fontFamily: 'Helvetica, Arial, sans-serif', // Setting the font style for the chart
+        foreColor: '#333333', // Setting the font color for the chart
+        fontSize: '30px' // Setting the font size for the chart
+      }
+    },
+    series1: [44, 55, 41, 17, 44],
+  })
 
   // data order card
   let orderCard = [
@@ -76,16 +76,23 @@ const [chartData, setChartData] = useState({
               <h3 className="text-[#142433] font-bold text-[16px] ">إجمالي إيرادات المبيعات</h3>
               <div className="w-[267px] max-[500px]:w-full max-[500px]:pr-3 h-[113px] bg-white mt-[8px] rounded-md flex flex-col items-center justify-around">
                 <div className=" max-[500px]:w-full flex items-center gap-1">
-                  <h1 className="text-[#224971] text-[40px] font-bold">250 ألف</h1>
-                  <span className="text-[#8797A8] text-[16px] relative top-[10px]">/ في الشهر </span>
+                  <h1 className="text-[#224971] text-[40px] font-bold">5450</h1>
+                </div>
+              </div>
+            </div>
+            <div className="max-[500px]:w-full">
+              <h3 className="text-[#142433] font-bold text-[16px] ">عدد العملأ</h3>
+              <div className="w-[267px] max-[500px]:w-full max-[500px]:pr-3 h-[113px] bg-white mt-[8px] rounded-md flex flex-col items-center justify-around">
+                <div className=" max-[500px]:w-full flex items-center gap-1">
+                  <h1 className="text-[#224971] text-[40px] font-bold">465</h1>
                 </div>
               </div>
             </div>
 
-            <div className="w-full text-start">
+            {/* <div className="w-full text-start">
               <h3 className="text-[#142433] font-bold text-[16px] "> الإيرادات الأكثر مبيعا  </h3>
               <span className="text-[#8797A8] text-[16px] relative"> إجمالي <span className="font-semibold"> 20.6 ألف </span> عميل</span>
-            </div>
+            </div> */}
 
           </div>
         </div>
@@ -97,7 +104,7 @@ const [chartData, setChartData] = useState({
           <div className="w-[421px] max-[500px]:w-full p-6 bg-[#DAE6F2] rounded-md flex flex-col items-start justify-center">
             <div className="w-full flex items-center justify-between">
               <h3 className="text-[#142433] font-bold text-[16px] ">الأكثر مبيعا</h3>
-        
+
             </div>
             <div className="mt-[26px] w-full">
               <div className="w-full flex  items-center justify-start">
@@ -112,7 +119,7 @@ const [chartData, setChartData] = useState({
                     <h4 className="text-[#506173] text-[16px] font-semibold"> تفاح</h4>
                     <p className="text-[#506173] text-[16px]">فواكه</p>
                   </div>
-                  <h4 className=" w-[160px] [font-semibold text-[#224971]"> 8 الف</h4>
+                  <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]"> 457</h4>
                   <p className="font-semibold text-[#2DA905] text-[14px]">في المخزون </p>
                 </div>
               </div>
@@ -122,17 +129,17 @@ const [chartData, setChartData] = useState({
                     <h4 className="text-[#506173] text-[16px] font-semibold">كول سلو</h4>
                     <p className="text-[#506173] text-[16px]">الخضار والفواكه</p>
                   </div>
-                  <h4 className=" w-[160px] [font-semibold text-[#224971]">5 الف</h4>
+                  <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">234</h4>
                   <p className="font-semibold text-[#2DA905] text-[14px]">في المخزون </p>
                 </div>
               </div>
               <div className="mt-[30px] w-full">
                 <div className="w-full flex items-start justify-start">
                   <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">باذنجان اسوذ</h4>
+                    <h4 className="text-[#506173] text-[16px] font-semibold">باذنجان اسود</h4>
                     <p className="text-[#506173] text-[16px]">الخضار </p>
                   </div>
-                  <h4 className=" w-[160px] [font-semibold text-[#224971]">20 الف</h4>
+                  <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">165</h4>
                   <p className="font-semibold text-[#2DA905] text-[14px]">في المخزون </p>
                 </div>
               </div>
@@ -144,7 +151,7 @@ const [chartData, setChartData] = useState({
 
           <h1 className="text-white text-[24px] font-semibold">.</h1>
           <div className="w-[350px] max-[500px]:w-full bg-[#DAE6F2] h-[360px] rounded-md flex flex-col items-center justify-center">
-          <Chart options={chartData.options1} series={chartData.series1} type="donut" width="380" />
+            <Chart options={chartData.options1} series={chartData.series1} type="donut" width="380" />
 
           </div>
         </div>

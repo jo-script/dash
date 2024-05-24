@@ -7,7 +7,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const Donut = () => {
   useEffect(() => {
-    document.title = 'ألتقارير'
+    document.title = 'التقارير'
   },[])
 
   const [chartData, setChartData] = useState({
@@ -54,7 +54,7 @@ const Donut = () => {
   });
 
   return (
-    <div className='w-full h-[90vh] flex items-center justify-center flex-wrap'>
+    <div className='w-[0%]  h-[90vh] items-center justify-center flex-wrap'>
       <Chart options={chartData.options1} series={chartData.series1} type="donut" width="380" />
       <Chart options={chartData.options2} series={chartData.series2} type="donut" width="380" />
       <Chart options={chartData.options3} series={chartData.series3} type="donut" width="380" />

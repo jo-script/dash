@@ -25,7 +25,7 @@ const notify = () => toast(
     <div className=" flex-1 ">
       <div className="w-full flex items-center justify-center gap-2">
         <div className="">
-          <p className="text-sm font-medium text-gray-900">وائل عبد المأمون</p>
+          <p className="text-sm font-medium text-gray-900">وائل مأمون</p>
           <div className=' flex justify-between gap-4 w-full mt-1'>
             <div className=" text-sm text-center text-gray-500">
               <p>رقم الطلب </p>
@@ -47,7 +47,7 @@ const notify = () => toast(
   </div>
   ,
   {
-    duration: 10000,
+    duration: 2000,
   }
 );
 
@@ -123,8 +123,8 @@ function Navbar() {
         <Link href='/profile' className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{direction:'rtl'}}>
           <Image src={logo} alt='' width={50} height={50} className='rounded-full border '  />
           <div>
-            <h3 className='text-[#142433] font-semibold'>Yousef Eid</h3>
-            <p className='text-[#65717d] text-sm '>yousefEid@gmail.com</p>
+            <h3 className='text-[#142433] font-semibold'>وائل مأمون</h3>
+            <p className='text-[#65717d] text-sm '>wayilmamun@gmail.com</p>
           </div>
         </Link>
       </div>

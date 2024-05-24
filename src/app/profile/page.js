@@ -7,8 +7,8 @@ function page() {
 
   let dataUser = [
     {
-      name: 'يوسف عيد',
-      email: 'yousefeid@gmail.com',
+      name: ' وائل مأمون',
+      email: 'wayilmamun@gmail.com',
       phone: '0123456789',
       address: 'اسكندريه / سموحه'
     }
