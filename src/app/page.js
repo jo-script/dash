@@ -66,10 +66,10 @@ const [chartData, setChartData] = useState({
 
 
   return (
-    <div className="w-full flex flex-col items-start  gap-10 mt-8 pr-8 max-[500px]:px-0 " style={{ direction: 'rtl' }}>
+    <div className="w-full flex flex-col items-start  gap-10 mt-8 pr-8 max-[500px]:px-0  max-[500px]:justify-center " style={{ direction: 'rtl' }}>
       <div className="flex items-start flex-wrap gap-2">
         {/* Sales statistics  */}
-        <div className="max-[500px]:w-full">
+        <div className="max-[500px]:w-[350px]">
           <h1 className="text-[#142433] text-[24px] font-semibold">احصائيات المبيعات</h1>
           <div className="w-[318px] max-[500px]:w-full max-[500px]:h-auto h-[360px] px-[26px] py-[27px] bg-[#DAE6F2] flex items-center justify-start flex-col gap-[24px] rounded-md">
             <div className="max-[500px]:w-full">
@@ -91,7 +91,7 @@ const [chartData, setChartData] = useState({
         </div>
 
         {/* ------------- */}
-        <div className="max-[500px]:w-[360px]">
+        <div className="max-[500px]:w-[350px]">
           <h1 className="text-[#142433] text-[24px] font-semibold">المنتجات</h1>
 
           <div className="w-[421px] max-[500px]:w-full p-6 bg-[#DAE6F2] rounded-md flex flex-col items-start justify-center">
@@ -102,37 +102,37 @@ const [chartData, setChartData] = useState({
             <div className="mt-[26px] w-full">
               <div className="w-full flex  items-center justify-start">
                 <h3 className="w-[133px] text-[#142433] font-bold text-[16px] text-start">إسم المنتج</h3>
-                <h3 className="w-[170px] text-[#142433] font-bold text-[16px] text-start ">إجمالي المبيعات</h3>
+                <h3 className="w-[160px] text-[#142433] font-bold text-[16px] text-start ">إجمالي المبيعات</h3>
                 <h3 className=" text-[#142433] font-bold text-[16px] text-start ">الحالة</h3>
               </div>
 
               <div className="mt-[30px] w-full">
                 <div className="w-full flex items-start justify-start">
                   <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">الاسم هنا</h4>
-                    <p className="text-[#506173] text-[16px]">القسم</p>
+                    <h4 className="text-[#506173] text-[16px] font-semibold"> تفاح</h4>
+                    <p className="text-[#506173] text-[16px]">فواكه</p>
                   </div>
-                  <h4 className=" w-[170px] [font-semibold text-[#224971]"> 20 الف</h4>
+                  <h4 className=" w-[160px] [font-semibold text-[#224971]"> 8 الف</h4>
                   <p className="font-semibold text-[#2DA905] text-[14px]">في المخزون </p>
                 </div>
               </div>
               <div className="mt-[30px] w-full">
                 <div className="w-full flex items-start justify-start">
                   <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">الاسم هنا</h4>
-                    <p className="text-[#506173] text-[16px]">القسم</p>
+                    <h4 className="text-[#506173] text-[16px] font-semibold">كول سلو</h4>
+                    <p className="text-[#506173] text-[16px]">الخضار والفواكه</p>
                   </div>
-                  <h4 className=" w-[170px] [font-semibold text-[#224971]">20 الف</h4>
+                  <h4 className=" w-[160px] [font-semibold text-[#224971]">5 الف</h4>
                   <p className="font-semibold text-[#2DA905] text-[14px]">في المخزون </p>
                 </div>
               </div>
               <div className="mt-[30px] w-full">
                 <div className="w-full flex items-start justify-start">
                   <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">الاسم هنا</h4>
-                    <p className="text-[#506173] text-[16px]">القسم</p>
+                    <h4 className="text-[#506173] text-[16px] font-semibold">باذنجان اسوذ</h4>
+                    <p className="text-[#506173] text-[16px]">الخضار </p>
                   </div>
-                  <h4 className=" w-[170px] [font-semibold text-[#224971]">$ 20 الف</h4>
+                  <h4 className=" w-[160px] [font-semibold text-[#224971]">20 الف</h4>
                   <p className="font-semibold text-[#2DA905] text-[14px]">في المخزون </p>
                 </div>
               </div>
@@ -140,7 +140,7 @@ const [chartData, setChartData] = useState({
           </div>
 
         </div>
-        <div className="max-[500px]:w-full">
+        <div className="max-[500px]:w-[350px]">
 
           <h1 className="text-white text-[24px] font-semibold">.</h1>
           <div className="w-[350px] max-[500px]:w-full bg-[#DAE6F2] h-[360px] rounded-md flex flex-col items-center justify-center">
@@ -154,11 +154,11 @@ const [chartData, setChartData] = useState({
       <div className='w-full' style={{ direction: 'rtl' }}>
         <h1 className="text-[#142433] text-[24px] font-semibold">. الطلبات</h1>
 
-        <div className="w-full mt-3 flex flex-wrap gap-3">
+        <div className="w-full mt-3 flex flex-wrap gap-3 max-[580px]:px-[5%]">
           {/* // Create an order card by looping a variable orderCard */}
           {
             orderCard.map((data, index) => (
-              <Link key={index} href={data.link} className='w-[260px] h-[126px] flex items-center justify-between gap-[60px] rounded-lg p-6 bg-[#DAE6F2] border border-[#2249711e] hover:scale-[1.03] transition-[all_.2s]'>
+              <Link key={index} href={data.link} className='w-[260px] h-[126px] flex items-center justify-between gap-[60px] rounded-lg p-6 bg-[#DAE6F2] border border-[#2249711e] hover:scale-[1.03] transition-[all_.2s] max-[580px]:w-full'>
                 <div>
                   <p className="mb-2 text-[16px] font-semibold tracking-tight text-[#142433] max-[690px]:text-[16px]">{data.title}</p>
                   <div className='flex items-center gap-4 text-[19px] '>
