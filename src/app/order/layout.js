@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
   ]
 
   return (
-    <div style={{ direction: 'rtl' }} className="py-5 px-7">
+    <div style={{ direction: 'rtl' }} className="py-5 px-7 max-[600px]:px-2">
 
       <div className=" linksOrder flex items-center justify-start gap-2 flex-wrap overflow-auto ">
         { // Create an order links by looping a variable linksOrder

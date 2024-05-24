@@ -14,7 +14,7 @@ function Products() {
   useEffect(() => { document.title = 'المنتجات' }, [])
 
   return (
-    <div className='w-full mt-8 flex content-center justify-start flex-wrap gap-3' style={{ direction: 'rtl' }}>
+    <div className='w-full mt-8 flex content-center justify-start flex-wrap gap-3 max-[480px]:justify-center' style={{ direction: 'rtl' }}>
       {products.map((product) => (
         <Link href={`/products/${product.id}`} key={product.id} className='w-[133px] h-[166px] overflow-hidden flex flex-col items-center justify-start bg-white rounded-xl shadow-md hover:scale-[1.05] transition-[all_.2s] '>
           <div >

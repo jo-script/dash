@@ -21,21 +21,12 @@ import { IoMdNotifications } from "react-icons/io";
 import toast, { Toaster } from 'react-hot-toast';
 
 const notify = () => toast(
-  <div className='w-[300px] rounded-lg pointer-events-auto flex' style={{direction:'rtl'}}>
+  <div className='w-[280px] rounded-lg pointer-events-auto flex  items-center justify-center' style={{direction:'rtl'}}>
     <div className=" flex-1 ">
-      <div className="flex items-start gap-2">
-        <div className="flex-shrink-0 pt-0.5">
-          <img
-            className="h-10 w-10 rounded-full"
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-            alt=""
-          />
-        </div>
+      <div className="w-full flex items-center justify-center gap-2">
         <div className="">
-          <p className="text-sm font-medium text-gray-900">
-            Emilia Gates
-          </p>
-          <div className='flex justify-between gap-2 w-full'>
+          <p className="text-sm font-medium text-gray-900">وائل عبد المأمون</p>
+          <div className=' flex justify-between gap-4 w-full mt-1'>
             <div className=" text-sm text-center text-gray-500">
               <p>رقم الطلب </p>
               {dataDelivered[0].numberOrders}
@@ -56,7 +47,7 @@ const notify = () => toast(
   </div>
   ,
   {
-    duration: 2000,
+    duration: 10000,
   }
 );
 
@@ -125,7 +116,7 @@ function Navbar() {
             <GrAppsRounded className='scale-[1.3]' />
           </Link>
           <Link href='/chart' className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
-            <span>ألتقارير</span>
+            <span>التقارير</span>
             <FaChartPie className='scale-[1.3]' />
           </Link>
         </div>
