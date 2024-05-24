@@ -66,7 +66,7 @@ const [chartData, setChartData] = useState({
 
 
   return (
-    <div className="w-full flex flex-col items-start  gap-10 mt-8 pr-8 max-[500px]:px-2 " style={{ direction: 'rtl' }}>
+    <div className="w-full flex flex-col items-start  gap-10 mt-8 pr-8 max-[500px]:px-0 " style={{ direction: 'rtl' }}>
       <div className="flex items-start flex-wrap gap-2">
         {/* Sales statistics  */}
         <div className="max-[500px]:w-full">
@@ -91,7 +91,7 @@ const [chartData, setChartData] = useState({
         </div>
 
         {/* ------------- */}
-        <div className="max-[500px]:w-[300px]">
+        <div className="max-[500px]:w-[360px]">
           <h1 className="text-[#142433] text-[24px] font-semibold">المنتجات</h1>
 
           <div className="w-[421px] max-[500px]:w-full p-6 bg-[#DAE6F2] rounded-md flex flex-col items-start justify-center">
