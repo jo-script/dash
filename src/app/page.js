@@ -151,10 +151,10 @@ const [chartData, setChartData] = useState({
       </div>
 
 
-      <div className='w-full max-[500px]:justify-center' style={{ direction: 'rtl' }}>
+      <div className='w-full max-[500px]:justify-center max-[580px]:px-[5%]' style={{ direction: 'rtl' }}>
         <h1 className="text-[#142433] text-[24px] font-semibold">الطلبات</h1>
 
-        <div className="w-full mt-3 flex flex-wrap gap-3 max-[580px]:px-[5%] max-[500px]:justify-center">
+        <div className="w-full mt-3 flex flex-wrap gap-3 max-[500px]:justify-center">
           {/* // Create an order card by looping a variable orderCard */}
           {
             orderCard.map((data, index) => (
