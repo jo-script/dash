@@ -1,6 +1,8 @@
 'use client'
-import { Component, useEffect } from "react";
-import Chart from 'react-apexcharts'
+import { Component, useEffect, useState } from "react";
+import dynamic from 'next/dynamic';
+
+
 
 import Link from "next/link";
 import Products from "./components/products";
@@ -13,34 +15,26 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 import { TbTruckLoading } from "react-icons/tb";
 import { MdChevronLeft } from "react-icons/md";
 
-class Donut extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      options: {
-        
-      },
-      series: [44, 55, 41, 17, 15],
-      labels: ['A', 'B', 'C', 'D', 'E'],
-      
-    }
-  }
-
-  render() {
-    return (
-      <div className="scale-[1] max-[500px]:w-[300px]">
-        <Chart options={this.state.options} series={this.state.series} type="donut" width="380" />
-      </div>
-    )
-  }
-}
 
 
 
 export default function Home() {
   useEffect(() => { document.title = ' الرئيسية' }, [])
+
+  const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+
+const [chartData, setChartData] = useState({
+  options1: {
+    colors: ['#faa000', '#00E396', '#775DD0', '#FEB019', '#008FFB'], // Custom colors for the first chart
+    labels: ['A', 'B', 'C', 'D', 'E'],
+    chart: {
+      fontFamily: 'Helvetica, Arial, sans-serif', // Setting the font style for the chart
+      foreColor: '#333333', // Setting the font color for the chart
+      fontSize: '30px' // Setting the font size for the chart
+    }
+  },
+  series1: [44, 55, 41, 17, 44],
+})
 
   // data order card
   let orderCard = [
@@ -150,7 +144,8 @@ export default function Home() {
 
           <h1 className="text-white text-[24px] font-semibold">.</h1>
           <div className="w-[350px] max-[500px]:w-full bg-[#DAE6F2] h-[360px] rounded-md flex flex-col items-center justify-center">
-            <Donut />
+          <Chart options={chartData.options1} series={chartData.series1} type="donut" width="380" />
+
           </div>
         </div>
       </div>
