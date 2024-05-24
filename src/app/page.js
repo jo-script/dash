@@ -55,7 +55,7 @@ const Donut = () => {
   });
 
   return (
-    <div className={style.chart}>
+    <div >
       <Chart options={chartData.options1} series={chartData.series1} type="donut" width="380" />
       <Chart options={chartData.options2} series={chartData.series2} type="donut" width="380" />
       <Chart options={chartData.options3} series={chartData.series3} type="donut" width="380" />
