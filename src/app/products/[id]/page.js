@@ -57,7 +57,7 @@ const ProductDetail = ({ params }) => {
         </div>
 
         {/* edit */}
-        <div className='flex items-center flex-col gap-4 max-[480px]:flex-row '>
+        <div className='flex items-center flex-col gap-4 max-[480px]:flex-row  '>
           <Link href={`/edit-products/${product.id}`} type="submit" className=" w-[120px] bg-blue-500 hover:bg-blue-700 text-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]">تعديل</Link>
           <Link href='#' type="submit" className=" w-[120px] bg-red-500 hover:bg-red-700 text-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]">حذف</Link>
         </div>

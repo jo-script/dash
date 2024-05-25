@@ -26,7 +26,7 @@ function Order() {
     {
       title: 'طلبات جاري تحضيرها',
       icon: <TbTruckDelivery className='scale-[1.3]' />,
-      number: '8',
+      number: '18',
       link: '/order/prepare-order'
     },
     {
@@ -36,22 +36,16 @@ function Order() {
       link: '/order/delivered'
     },
     {
-      title: 'الطلبات الجديدة',
-      icon: <TbTruckLoading className='scale-[1.3]' />,
-      number: '8',
-      link: '/order/canceled-order'
-    },
-    {
       title: 'الطلبات مجدولة',
       icon: <TbTruckLoading className='scale-[1.3]' />,
-      number: '8',
+      number: '22',
       link: '/order/canceled-order'
     },
     {
       title: 'طلبات مرفوضه',
       icon: <IoMdCloseCircleOutline className='scale-[1.3]	' />,
-      number: '8',
-      link: ''
+      number: '3',
+      link: '/order/canceled-order'
     },
   ]
 
