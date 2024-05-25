@@ -17,9 +17,9 @@ const OrderDetail = ({ params }) => {
 
   return (
 
-    <div>
+    <div className='flex flex-col max-[900px]:items-center' >
 
-      <div class="w-3/4 overflow-x-auto shadow-md sm:rounded-lg mt-10">
+      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
@@ -49,7 +49,7 @@ const OrderDetail = ({ params }) => {
         </table>
       </div>
 
-      <div class="w-3/4 overflow-x-auto shadow-md sm:rounded-lg mt-10">
+      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
@@ -78,7 +78,7 @@ const OrderDetail = ({ params }) => {
         </table>
       </div>
 
-      <div class="w-3/4 overflow-x-auto shadow-md sm:rounded-lg mt-10">
+      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
@@ -123,7 +123,7 @@ const OrderDetail = ({ params }) => {
         </table>
       </div>
 
-      <div class="w-3/4 overflow-x-auto shadow-md sm:rounded-lg mt-10">
+      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
@@ -164,7 +164,7 @@ const OrderDetail = ({ params }) => {
         </table>
       </div>
 
-      <div class="w-3/4 overflow-x-auto shadow-md sm:rounded-lg mt-10">
+      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
