@@ -52,7 +52,7 @@ const EditProduct = ({ params }) => {
           <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="kilograms"> ألوزن </label>
           <input type="number" id="kilograms" defaultValue={product.kilograms} placeholder="ادخل الوزن" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
         </div>
-        <div className='flex items-center gap-5'>
+        <div className='flex items-center gap-5 mb-4'>
         <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]">
           حفظ التعديلات
         </button>

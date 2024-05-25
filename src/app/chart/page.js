@@ -54,11 +54,9 @@ const Donut = () => {
   });
 
   return (
-    <div className='w-[70%]  h-[90vh] items-center justify-center flex-wrap'>
+    <div className='w-full h-[90vh] items-center justify-center flex-wrap gap-10'>
       <Chart options={chartData.options1} series={chartData.series1} type="donut" width="380" />
       <Chart options={chartData.options2} series={chartData.series2} type="donut" width="380" />
-      <Chart options={chartData.options3} series={chartData.series3} type="donut" width="380" />
-      <Chart options={chartData.options4} series={chartData.series4} type="donut" width="380" />
     </div>
   );
 }
