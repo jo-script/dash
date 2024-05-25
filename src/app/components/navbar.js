@@ -21,7 +21,7 @@ import { IoMdNotifications } from "react-icons/io";
 import toast, { Toaster } from 'react-hot-toast';
 
 const notify = () => toast(
-  <div className='w-[280px] rounded-lg pointer-events-auto flex  items-center justify-center' style={{direction:'rtl'}}>
+  <div className='w-[280px] rounded-lg pointer-events-auto flex  items-center justify-center' style={{ direction: 'rtl' }}>
     <div className=" flex-1 ">
       <div className="w-full flex items-center justify-center gap-2">
         <div className="">
@@ -58,7 +58,7 @@ function Navbar() {
   const [pageTitle, setPageTitle] = useState('');
   const [changes, setChanges] = useState(0);
   const [notification, setNotification] = useState(0)
-  
+
   useEffect(() => { document.title = 'لوحة التحكم' }, [])
 
   useEffect(() => {
@@ -70,6 +70,10 @@ function Navbar() {
     setNotification(2)
   }, [changes]);
 
+  const handleLinkClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const links_sidebar_style = 'w-[90%] text-[#8797A8] flex items-center justify-end gap-3 p-2 rounded-md hover:bg-gray-200 hover:pr-4 transition-[all_.2s]'
 
   return (
@@ -77,10 +81,10 @@ function Navbar() {
       <div className='w-[12%] flex items-center justify-between gap-10'>
         <Image src={logo} width={50} height={50} alt='' />
         <Link href='/notification' className='relative'>
-           <IoMdNotifications className='scale-[2]' onClick={notify}/>
-           {notification > 0 && (<p className='absolute top-[-15px] right-[-10px] w-[20px] h-[20px] flex items-center justify-center bg-red-500 rounded-full text-white font-semibold '>{notification}</p>)}
-           </Link>
-      <Toaster />
+          <IoMdNotifications className='scale-[2]' onClick={notify} />
+          {notification > 0 && (<p className='absolute top-[-15px] right-[-10px] w-[20px] h-[20px] flex items-center justify-center bg-red-500 rounded-full text-white font-semibold '>{notification}</p>)}
+        </Link>
+        <Toaster />
       </div>
 
       {/* search */}
@@ -103,27 +107,27 @@ function Navbar() {
         {/* links */}
         <div className=' w-full text-[19px] flex flex-col justify-center items-center gap-2 '>
 
-          <Link href='/' className={`${pathname == '/' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''} ${links_sidebar_style} `}>
+          <Link href='/' onClick={handleLinkClick} className={`${pathname == '/' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''} ${links_sidebar_style} `}>
             <span>الرئيسية</span>
             <GrHomeRounded />
           </Link>
-          <Link href='/order' className={`${pathname == '/order' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''} ${links_sidebar_style}`}>
+          <Link href='/order' onClick={handleLinkClick} className={`${pathname == '/order' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''} ${links_sidebar_style}`}>
             <span>الطلبات</span>
             <IoCartOutline className='scale-[1.3]' />
           </Link>
-          <Link href='/products' className={`${pathname == '/products' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
+          <Link href='/products' onClick={handleLinkClick} className={`${pathname == '/products' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
             <span>المنتجات</span>
             <GrAppsRounded className='scale-[1.3]' />
           </Link>
-          <Link href='/chart' className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
+          <Link href='/chart' onClick={handleLinkClick} className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
             <span>التقارير</span>
             <FaChartPie className='scale-[1.3]' />
           </Link>
         </div>
-        <Link href='/profile' className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{direction:'rtl'}}>
-          <Image src={logo} alt='' width={50} height={50} className='rounded-full border '  />
+        <Link href='/profile' onClick={handleLinkClick} className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{ direction: 'rtl' }}>
+          <Image src={logo} alt='' width={50} height={50} className='rounded-full border ' />
           <div>
-            <h3 className='text-[#142433] font-semibold'>خزين البيت</h3>
+            <h3 className='text-[#142433] font-semibold'>وائل مأمون</h3>
             <p className='text-[#65717d] text-sm '>wayilmamun@gmail.com</p>
           </div>
         </Link>
