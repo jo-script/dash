@@ -123,7 +123,7 @@ function Navbar() {
         <Link href='/profile' className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{direction:'rtl'}}>
           <Image src={logo} alt='' width={50} height={50} className='rounded-full border '  />
           <div>
-            <h3 className='text-[#142433] font-semibold'>وائل مأمون</h3>
+            <h3 className='text-[#142433] font-semibold'>خزين البيت</h3>
             <p className='text-[#65717d] text-sm '>wayilmamun@gmail.com</p>
           </div>
         </Link>
