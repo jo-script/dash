@@ -1,6 +1,4 @@
 import { Cairo, Inter, Tajawal } from "next/font/google";
-import "./globals.css";
-import Navbar from "./components/navbar";
 
 const tajawal = Tajawal({ subsets: ["arabic"], weight:["200", "300", "400", "500", "700", "900"] });
 
@@ -15,8 +13,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={tajawal.className}>
-      <Navbar />
-
         {children}</body>
     </html>
   );

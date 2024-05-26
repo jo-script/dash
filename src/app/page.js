@@ -2,11 +2,8 @@
 import { Component, useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 
-
-
 import Link from "next/link";
-import Products from "./components/products";
-import Order from "./order/page";
+import Products from "./components/products.js";
 
 // import icons 
 import { MdOutlineNewspaper } from "react-icons/md";
@@ -88,11 +85,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-
-            {/* <div className="w-full text-start">
-              <h3 className="text-[#142433] font-bold text-[16px] "> الإيرادات الأكثر مبيعا  </h3>
-              <span className="text-[#8797A8] text-[16px] relative"> إجمالي <span className="font-semibold"> 20.6 ألف </span> عميل</span>
-            </div> */}
 
           </div>
         </div>

@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
     },
     {
       name: 'الطلبات مجدولة',
-      link: '/order/Archived-order',
+      link: '/order/archived-order',
       icon: <TbTruckDelivery className="scale-[1.5]" />
     },
     {

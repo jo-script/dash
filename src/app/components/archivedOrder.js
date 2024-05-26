@@ -41,7 +41,7 @@ function ArchivedOrder() {
             <p className='text-[#364e64] text-[17px]'>{order.client.name}</p>
           </div>
           <div className='max-[750px]:min-w-[100px] flex flex-col items-start justify-start gap-2 text-[#364e64]'>
-            <Link href={`/order/prepare-order/${order.id}`} className='flex items-center gap-2 px-2 pb-[2px] rounded-full hover:bg-blue-400 hover:text-white transition-[all_.1s]'>
+            <Link href={`/order/archived-order/${order.id}`} className='flex items-center gap-2 px-2 pb-[2px] rounded-full hover:bg-blue-400 hover:text-white transition-[all_.1s]'>
               <span>عرض</span>
               <BiShow />
             </Link>
