@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      {children}
+      <body className={tajawal.className}>{children}</body>
     </html>
   );
 }
