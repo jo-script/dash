@@ -13,12 +13,12 @@ export default function RootLayout({ children }) {
   const linksOrder = [
     {
       name: ' المنتجات',
-      link: '/order/new-order',
+      link: '/products',
       icon: <MdOutlineNewspaper className="scale-[1.5]" />
     },
     {
       name: 'التصنيفات',
-      link: '/order/prepare-order',
+      link: '/products/prepare-order',
       icon: <TbTruckLoading className="scale-[1.5]" />
     },
     {
