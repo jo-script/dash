@@ -14,10 +14,9 @@ import { PiList } from "react-icons/pi";
 import { IoCartOutline } from "react-icons/io5";
 import { GrHomeRounded } from "react-icons/gr";
 import { GrAppsRounded } from "react-icons/gr";
-import { FaChartPie } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
-
-
+import { MdOutlineSubscriptions } from 'react-icons/md';
+import { BiPieChartAlt2 } from 'react-icons/bi';
 import toast, { Toaster } from 'react-hot-toast';
 
 const notify = () => toast(
@@ -106,7 +105,7 @@ function Navbar() {
       <div className={` ${isMenuOpen ? 'mr-[-270px]' : ''}  w-[250px] h-[90vh] py-2 absolute top-[80px]  right-0 flex flex-col justify-between bg-white shadow-[5px_10px_8px_0_black] lg:mr-0 transition-[all_.3s]`}>
         {/* links */}
 
-    {/* shadow */}
+        {/* shadow */}
         {/* <div onClick={handleLinkClick} onMouseOut={handleLinkClick} className={`${isMenuOpen ? 'w-0' : 'w-0'} lg:hidden absolute top-0 left-[-300px] w-[400px] h-full bg-gray-500`}></div> */}
         <div className=' w-full text-[19px] flex flex-col justify-center items-center gap-2 '>
 
@@ -124,7 +123,13 @@ function Navbar() {
           </Link>
           <Link href='/chart' onClick={handleLinkClick} className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
             <span>التقارير</span>
-            <FaChartPie className='scale-[1.3]' />
+            <BiPieChartAlt2 className='scale-[1.3]' />
+          </Link>
+          <Link href='/subscription' onClick={handleLinkClick} className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
+            <span>الإشتراك</span>
+            <MdOutlineSubscriptions className='scale-[1.3]' />
+            
+
           </Link>
         </div>
         <Link href='/profile' onClick={handleLinkClick} className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{ direction: 'rtl' }}>

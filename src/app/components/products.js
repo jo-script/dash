@@ -10,9 +10,13 @@ import {products} from '../products/productData.js'
 import { BiShowAlt } from "react-icons/bi";
 import { MdEdit } from "react-icons/md";
 
+
 function Products() {
   useEffect(() => { document.title = 'المنتجات' }, [])
-
+  if(!products){
+    return <div>Loading....</div>
+  }
+  
   return (
     <div className='w-full mt-8 flex content-center justify-start flex-wrap gap-5 max-[480px]:gap-3 max-[480px]:justify-center' style={{ direction: 'rtl' }}>
       {products.map((product) => (
