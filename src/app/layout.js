@@ -1,6 +1,6 @@
 import { Cairo, Inter, Tajawal } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/navbar";
+import Navbar from "../components/navbar";
 
 const tajawal = Tajawal({ subsets: ["arabic"], weight:["200", "300", "400", "500", "700", "900"] });
 

@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
-import NewOrder from '../../components/newOrder.js'
+import NewOrder from '../../../components/newOrder.js'
 
 
 function page() {

@@ -1,4 +1,4 @@
-import CanceledOrder from '@/app/components/canceledOrder'
+import CanceledOrder from '@/components/canceledOrder'
 import React from 'react'
 
 function page() {

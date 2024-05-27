@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { dataDelivered } from '../order/delivered/dataDelivered.js'; // import data delivered 
+import { dataDelivered } from '../app/order/delivered/dataDelivered.js'; // import data delivered 
 
-import logo from '../public/logo/logo.png'
+import logo from '../app/public/logo/logo.png'
 
 // import icons
 import { IoSearchOutline } from "react-icons/io5";

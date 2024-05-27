@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // import data product
-import {products} from '../products/productData.js'
+import {products} from '../app/products/productData.js'
 
 // import icon
 import { BiShowAlt } from "react-icons/bi";

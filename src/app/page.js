@@ -3,7 +3,7 @@ import { Component, useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 
 import Link from "next/link";
-import Products from "./components/products.js";
+import Products from "../components/products.js";
 
 // import icons 
 import { MdOutlineNewspaper } from "react-icons/md";

@@ -1,4 +1,4 @@
-import PrepareOrder from '@/app/components/prepare-order'
+import PrepareOrder from '@/components/prepare-order'
 import React from 'react'
 
 function page() {
@@ -9,4 +9,4 @@ function page() {
   )
 }
 
-export default PrepareOrder
+export default page

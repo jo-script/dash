@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { dataDelivered } from '../order/delivered/dataDelivered.js'; // import data delivered 
+import { dataDelivered } from '../app/order/delivered/dataDelivered.js'; // import data delivered 
 import Link from 'next/link';
 
 import { MdDone } from "react-icons/md";

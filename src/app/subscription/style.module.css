@@ -1,0 +1,94 @@
+.appCard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 60%;
+  padding: 30px 30px 40px 30px ;
+  
+  background-color: #c6dcf26b;
+  border-radius: 15px;
+}
+
+
+
+.appCard .title{
+  font-size: 50px;
+  color: #224971;
+  font-weight: bold;
+}
+
+.appCard .card{
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-self: center; */
+  gap: 20px;
+  border-radius: 10px;
+  background-color: #dae6f2;
+  padding: 10px 0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.094);
+  border: 1px solid #2249712f;
+}
+
+.appCard .card .plan{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.appCard .card .plan p{
+  
+  font-weight: 400;
+  font-size: 20px;
+  color: #637281;
+}
+
+.appCard .card .plan h1{
+  font-weight: bold;
+  font-size: 25px;
+  color: #224971;
+}
+
+.appCard .card .features p{
+  font-size: 18px;
+  margin-bottom: 5px;
+
+}
+
+.appCard .card .but{
+  width: 260px;
+  height: 40px;
+  background-color: #224971;
+  font-size: 20px;
+  font-weight: 300;
+  border-radius: 8px;
+  font-weight: 500;
+  color: white;
+  transition: all .2s;
+}
+
+.but:hover{
+  background-color: #316aa4fa;
+
+}
+
+@media screen and (max-width:600px) {
+  
+.appCard .title{
+  font-size: 30px;
+}
+
+.appCard{
+  width: 95%;
+}
+}
+
+@media screen and (max-width:900px){
+  .appCard{
+    width: 90%;
+  }
+}
