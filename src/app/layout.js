@@ -1,6 +1,9 @@
 import { Cairo, Inter, Tajawal } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/navbar";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { ApolloWrapper } from "@/lib/apollo-wrapper";
+
 
 const tajawal = Tajawal({ subsets: ["arabic"], weight:["200", "300", "400", "500", "700", "900"] });
 
@@ -16,8 +19,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={tajawal.className}>
       <Navbar />
-
-        {children}</body>
+      <ApolloWrapper>{children}</ApolloWrapper>
+        </body>
     </html>
   );
 }

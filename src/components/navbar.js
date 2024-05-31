@@ -15,10 +15,12 @@ import { IoCartOutline } from "react-icons/io5";
 import { GrHomeRounded } from "react-icons/gr";
 import { GrAppsRounded } from "react-icons/gr";
 import { IoMdNotifications } from "react-icons/io";
-import { MdOutlineSubscriptions } from 'react-icons/md';
-import { BiPieChartAlt2 } from 'react-icons/bi';
+import { CiLogout } from "react-icons/ci";
+
+// notification component
 import toast, { Toaster } from 'react-hot-toast';
 
+// notification card
 const notify = () => toast(
   <div className='w-[280px] rounded-lg pointer-events-auto flex  items-center justify-center' style={{ direction: 'rtl' }}>
     <div className=" flex-1 ">
@@ -69,10 +71,10 @@ function Navbar() {
     setNotification(2)
   }, [changes]);
 
-  const handleLinkClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // close sidebar on click
+  const handleLinkClick = () => setIsMenuOpen(!isMenuOpen)
 
+  // classes style
   const links_sidebar_style = 'w-[90%] text-[#8797A8] flex items-center justify-end gap-3 p-2 rounded-md hover:bg-gray-200 hover:pr-4 transition-[all_.2s]'
 
   return (
@@ -100,15 +102,12 @@ function Navbar() {
         <PiList className='scale-[1.8] cursor-pointer lg:hidden' onClick={() => setIsMenuOpen(!isMenuOpen)} />
       </div>
 
-
       {/* side bar */}
       <div className={` ${isMenuOpen ? 'mr-[-270px]' : ''}  w-[250px] h-[90vh] py-2 absolute top-[80px]  right-0 flex flex-col justify-between bg-white shadow-[5px_10px_8px_0_black] lg:mr-0 transition-[all_.3s]`}>
+
+          <div onClick={() => setIsMenuOpen(!isMenuOpen)} className={`fixed left-0 top-[80px] w-[770px] h-[100vh] ${isMenuOpen ? 'hidden' : ''} `}></div>
         {/* links */}
-
-        {/* shadow */}
-        {/* <div onClick={handleLinkClick} onMouseOut={handleLinkClick} className={`${isMenuOpen ? 'w-0' : 'w-0'} lg:hidden absolute top-0 left-[-300px] w-[400px] h-full bg-gray-500`}></div> */}
         <div className=' w-full text-[19px] flex flex-col justify-center items-center gap-2 '>
-
           <Link href='/' onClick={handleLinkClick} className={`${pathname == '/' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''} ${links_sidebar_style} `}>
             <span>الرئيسية</span>
             <GrHomeRounded />
@@ -121,24 +120,21 @@ function Navbar() {
             <span>المنتجات</span>
             <GrAppsRounded className='scale-[1.3]' />
           </Link>
-          <Link href='/chart' onClick={handleLinkClick} className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
-            <span>التقارير</span>
-            <BiPieChartAlt2 className='scale-[1.3]' />
-          </Link>
-          <Link href='/subscription' onClick={handleLinkClick} className={`${pathname == '/chart' ? "bg-gray-200 pr-4 text-[#3E5F83] font-semibold" : ''}  ${links_sidebar_style}`}>
-            <span>الإشتراك</span>
-            <MdOutlineSubscriptions className='scale-[1.3]' />
-            
-
-          </Link>
         </div>
-        <Link href='/profile' onClick={handleLinkClick} className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{ direction: 'rtl' }}>
-          <Image src={logo} alt='' width={50} height={50} className='rounded-full border ' />
-          <div>
-            <h3 className='text-[#142433] font-semibold'>خزين البيت</h3>
-            <p className='text-[#65717d] text-sm '>wayilmamun@gmail.com</p>
-          </div>
-        </Link>
+
+        {/* profile user */}
+        <div className='w-full flex items-center justify-between pl-[20px]'>
+          <CiLogout className='scale-[2] cursor-pointer'/>
+          <Link href='/profile' onClick={handleLinkClick} className='w-full pr-3 pb-3 flex items-center justify-start gap-2 hover:bg-gray-200 transition-[all_.2s]' style={{ direction: 'rtl' }}>
+            <Image src={logo} alt='' width={50} height={50} className='rounded-full border ' />
+            <div>
+              <h3 className='text-[#142433] font-semibold'>خزين البيت</h3>
+              <p className='text-[#65717d] text-sm '>0123456789</p>
+            </div>
+          </Link>
+
+
+        </div>
       </div>
     </div>
   );

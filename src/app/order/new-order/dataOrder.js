@@ -9,7 +9,7 @@ export const dataOrders = [
     numberPieces: '4',
     store: {
       imgProfile:logo,
-      name: 'ألبيت',
+      name: 'البيت',
     },
     client: {
       imgProfile:logo,

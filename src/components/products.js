@@ -6,16 +6,9 @@ import Link from 'next/link';
 // import data product
 import {products} from '../app/products/productData.js'
 
-// import icon
-import { BiShowAlt } from "react-icons/bi";
-import { MdEdit } from "react-icons/md";
-
-
 function Products() {
   useEffect(() => { document.title = 'المنتجات' }, [])
-  if(!products){
-    return <div>Loading....</div>
-  }
+  if(!products) return <div>Loading....</div>
   
   return (
     <div className='w-full mt-8 flex content-center justify-start flex-wrap gap-5 max-[480px]:gap-3 max-[480px]:justify-center' style={{ direction: 'rtl' }}>

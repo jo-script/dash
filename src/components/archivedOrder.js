@@ -1,13 +1,13 @@
 "use client"
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import { dataOrders } from '../app/order/new-order/dataOrder.js'; // import data order 
 import Link from 'next/link';
 
-import { MdDone } from "react-icons/md";
+import { dataOrders } from '../app/order/new-order/dataOrder.js'; // import data order 
+
+//import icons
 import { IoMdClose } from "react-icons/io";
 import { BiShow } from "react-icons/bi";
-
 
 function ArchivedOrder() {
   useEffect(() => { document.title = ' الطلبات المجدولة' }, [])

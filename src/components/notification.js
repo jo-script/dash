@@ -4,13 +4,10 @@ import Image from 'next/image';
 import { dataDelivered } from '../app/order/delivered/dataDelivered.js'; // import data delivered 
 import Link from 'next/link';
 
+// import icons 
 import { MdDone } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { BiShow } from "react-icons/bi";
-
-
-
-
 
 function Notification() {
   useEffect(() => { document.title = 'الإشعارات' }, [])
