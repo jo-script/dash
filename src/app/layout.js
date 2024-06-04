@@ -4,6 +4,7 @@ import Navbar from "../components/navbar";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ApolloWrapper } from "@/lib/apollo-wrapper";
 import "./metadata";
+// import { isLoginPage } from "@/HOC/isLoginPage";
 const tajawal = Tajawal({
   subsets: ["arabic"],
   weight: ["200", "300", "400", "500", "700", "900"],

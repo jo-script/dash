@@ -63,6 +63,13 @@ function Navbar() {
   const [pageTitle, setPageTitle] = useState("");
   const [changes, setChanges] = useState(0);
   const [notification, setNotification] = useState(0);
+  const [profile, setprofile] = useState({
+    name: "",
+    phone: "",
+    address: "",
+    email: "",
+    image: "",
+  });
 
   useEffect(() => {
     document.title = "لوحة التحكم";
@@ -81,15 +88,14 @@ function Navbar() {
   const handleLinkClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  async function logout() {
-    console.log("logout clicked");
+  async function getprofile() {
     if (secureLocalStorage.getItem("_tocken") !== null) {
       const jwtsecure = secureLocalStorage.getItem("_tocken");
-      // console.log(jwtsecure)
+      console.log(jwtsecure);
       const accessToken = jwtDecode(jwtsecure);
       console.log(accessToken);
       const jsonString = JSON.stringify({});
-      let result = await fetch("/api/auth/admin/profile.php?logout", {
+      let result = await fetch("/api/auth/supplier/profile.php?view", {
         method: "POST",
         body: jsonString,
         headers: {
@@ -99,7 +105,58 @@ function Navbar() {
         },
       }).catch((e) => console.log(e));
       result = await result.json();
-      secureLocalStorage.setItem("_tocken", null);
+      console.log(result);
+      // const messages = result.login.message
+      const state = result.user.status;
+      if (state == "success") {
+        const profile = {
+          name: `${result.user.data.firstname} ${result.user.data.lastname}`,
+          phone: result.user.data.phone,
+          address: result.user.data.address[0].address1,
+          email: result.user.data.email,
+          image: result.user.data.image,
+        };
+        setprofile(profile);
+      } else {
+        setprofile({
+          name: "",
+          phone: "",
+          address: "",
+          email: "",
+          image: "",
+        });
+      }
+    } else {
+      setprofile({
+        name: "",
+        phone: "",
+        address: "",
+        email: "",
+        image: "",
+      });
+    }
+  }
+  useEffect(() => {
+    getprofile();
+  }, []);
+  async function logout() {
+    console.log("logout clicked");
+    if (secureLocalStorage.getItem("_tocken") !== null) {
+      const jwtsecure = secureLocalStorage.getItem("_tocken");
+      // console.log(jwtsecure)
+      const accessToken = jwtDecode(jwtsecure);
+      console.log(accessToken);
+      const jsonString = JSON.stringify({});
+      let result = await fetch("/api/auth/supplier/profile.php?logout", {
+        method: "POST",
+        body: jsonString,
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          // 'X-Custom-Header': `Bearer ${jwtsecure}`
+        },
+      }).catch((e) => console.log(e));
+      result = await result.json();
       console.log(result);
       // const messages = result.login.message
       const state = result.user.status;
@@ -215,7 +272,7 @@ function Navbar() {
             style={{ direction: "rtl" }}
           >
             <Image
-              src={logo}
+              src={profile.image !== "" ? profile.image : "/ZKZg.gif"}
               alt=""
               width={50}
               height={50}
