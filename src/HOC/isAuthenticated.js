@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import jwtDecode from "jwt-decode"; // Assuming you have this library installed
+// import {jwtDecode} from "jwt-decode"; // Assuming you have this library installed
 import secureLocalStorage from "react-secure-storage";
+import { jwtDecode } from "jwt-decode";
 
 const useAuth = () => {
   const router = useRouter();
@@ -11,6 +12,8 @@ const useAuth = () => {
     // Redirect to login page if token is not present
     router.push("/login");
     return;
+  } else {
+    router.push("/")
   }
 
   try {

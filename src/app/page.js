@@ -24,7 +24,8 @@ export default function Home() {
     // if (!isAuthenticated) router.push("/login");
     console.log(isAuthenticated);
   }, []);
-
+  
+  useAuth()
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
   const [chartData, setChartData] = useState({

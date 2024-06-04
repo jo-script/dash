@@ -224,7 +224,7 @@ function login(props) {
                         </div>
                         {/* <div className="text"><a href="#">Forgot password?</a></div> */}
                         <div className="button input-box">
-                          <input type="submit" value="تسجبل دخول" />
+                          <input type="submit" value="تسجيل دخول" />
                         </div>
                         <div id="errormessage"></div>
                         {/* <div className="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div> */}
@@ -240,7 +240,7 @@ function login(props) {
         <>
           {/* loading */}
           <div className="loading">
-            <img src="/ZKZg.gif" alt="loading" />
+            <img src="/ZKZg.gif" alt="loading" className="scale-[.6]" />
           </div>
         </>
       )}
