@@ -120,6 +120,8 @@ function AddProduct() {
 
       // Add text data
       formData.append("namear", productnamear);
+      console.log(productnamear);
+      console.log(productnameen);
       formData.append("nameen", productnameen);
       formData.append("discriptionar", productdescriptionar);
       formData.append("discriptionen", productdescriptionen);
@@ -132,6 +134,8 @@ function AddProduct() {
       // const imageInput = document.getElementById('fileInput'); // Adjust the ID based on your HTML input element
       // const imageFile = imageInput.files[0];
       formData.append("image", productimage);
+
+      console.log(formData);
       let result;
       try {
         result = await fetch("/api/auth/supplier/product.php?add", {
@@ -155,6 +159,7 @@ function AddProduct() {
       }
       if (result) {
         result = await result.json();
+        console.log(result);
         // Process the JSON response
       }
       // console.log(result)
@@ -175,7 +180,6 @@ function AddProduct() {
         img.width = 200; // Set width for preview image
         imagePreview.innerHTML = ""; // Clear previous preview
         imagePreview.appendChild(img);
-        document.getElementById("imageUp").remove();
       };
 
       reader.readAsDataURL(file);
@@ -223,7 +227,9 @@ function AddProduct() {
             type="text"
             placeholder="اسم المنتج بالعربية"
             name="productnamear"
-            onChange={changeproductnamear}
+            onChange={(e) => {
+              setProductnamear(e.target.value);
+            }}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -238,7 +244,9 @@ function AddProduct() {
             type="text"
             placeholder=" اسم المنتج باالانجليزية"
             name="productnameen"
-            onChange={changeproductnameen}
+            onChange={(e) => {
+              setProductnameen(e.target.value);
+            }}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
