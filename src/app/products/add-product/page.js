@@ -175,6 +175,7 @@ function AddProduct() {
         img.width = 200; // Set width for preview image
         imagePreview.innerHTML = ""; // Clear previous preview
         imagePreview.appendChild(img);
+        document.getElementById("imageUp").remove();
       };
 
       reader.readAsDataURL(file);
@@ -184,31 +185,28 @@ function AddProduct() {
   }
   return (
     <div
-      className="w-full mx-auto p-4 flex items-center flex-col gap-5 mt-10 max-[800px]:p-1"
+      className="addproduct w-full mx-auto p-4 flex items-center justify-center flex-col gap-5 mt-10 max-[800px]:p-1"
       style={{ direction: "rtl" }}
     >
-      {/* add img to product */}
-      <div className="w-[60%] max-[800px]:w-[80%] h-[350px] rounded-lg border flex items-center justify-center mt-3">
-        {/* <label
-          htmlFor="addImg"
-          className="w-full h-full flex items-center justify-center"
-        >
-          Add Image
-        </label> */}
-        <img src="/imageup.png" alt="" />
-        <input
-          type="file"
-          name="image"
-          onChange={(e) => {
-            showimage(e), setImage(e.target.files[0]);
-          }}
-        />
-        <div id="imageinpno" className="productimage"></div>
+      <div className=" flex justify-center w-full">
+        <div className="addproductimage">
+          <div id="imageinpno" className="productimage">
+            <img id="#imageinpnocover" src="/imageup.png" width="100px" />
+          </div>
+          <input
+            id="inputImage"
+            type="file"
+            name="image"
+            className="opacity-0"
+            onChange={(e) => {
+              showimage(e), setImage(e.target.files[0]);
+            }}
+          />
+        </div>
       </div>
-
       {/* form add product*/}
       <form
-        className="mt-4 w-[60%] max-[800px]:w-[95%] max-[500px]:w-full"
+        className="addproductform mt-4 w-[90%] max-[800px]:w-[95%] max-[500px]:w-full"
         onSubmit={(e) => {
           e.preventDefault(), addproduct();
         }}
