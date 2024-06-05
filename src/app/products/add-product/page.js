@@ -1,63 +1,348 @@
-
-import Link from 'next/link'
-import Image from 'next/image'
+"use client";
+import Link from "next/link";
+import Image from "next/image";
+import { useState, useEffect, setState } from "react";
+import Input from "@/components/input";
+// import $ from 'jquery';
+import { useRouter } from "next/navigation";
+import secureLocalStorage from "react-secure-storage";
+import jwtencode from "jwt-encode";
+import { jwtDecode } from "jwt-decode";
 
 function AddProduct() {
-  return (
-    <div className="w-full mx-auto p-4 flex items-center flex-col gap-5 mt-10 max-[800px]:p-1" style={{ direction: 'rtl' }}>
+  const router = useRouter();
 
+  const [productnamear, setProductnamear] = useState("");
+  const [productnameen, setProductnameen] = useState("");
+  const [productdescriptionar, setProductdescriptionar] = useState(1);
+  const [productdescriptionen, setProductdescriptionen] = useState(1);
+  const [productprice, setProductprice] = useState("");
+  const [categories, setCategories] = useState(Array);
+  const [subcategories, setsubCategories] = useState(Array);
+  const [stocktype, setstocktype] = useState(Array);
+  const [categoryinproduct, setcategoryinproduct] = useState(1);
+  const [subcategoryinproduct, setsubcategoryinproduct] = useState(1);
+  const [stocktypeinproduct, setstocktypeinproduct] = useState(0);
+  const [productimage, setImage] = useState("");
+  const [Spinner, setSpinner] = useState("loading");
+
+  const changeproductnamear = (newValue) => {
+    setProductnamear(newValue);
+  };
+  const changeproductnameen = (newValue) => {
+    setProductnameen(newValue);
+  };
+  const changeproductdescriptionar = (newValue) => {
+    setProductdescriptionar(newValue);
+  };
+  const changeproductdescriptionen = (newValue) => {
+    setProductdescriptionen(newValue);
+  };
+  const changeproductprice = (newValue) => {
+    setProductprice(newValue);
+  };
+
+  useEffect(() => {
+    // Set the document title when the component mounts
+    document.title = "اضافة منتج جديد";
+    getcategory();
+    getsubcategory();
+    getstocktype();
+    setSpinner("get");
+  }, []);
+
+  async function getcategory() {
+    let result = await fetch("/api/get/categories.php", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json-patch+json",
+        "Access-Control-Allow-Origin": "*",
+        // Origin: '*',
+        // Accept: 'application/json',
+      },
+    }).catch((e) => console.log(e));
+    result = await result.json();
+    // console.log(result)
+    setCategories(result.data);
+  }
+  async function getsubcategory() {
+    let result = await fetch("/api/get/supcategories.php", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json-patch+json",
+        "Access-Control-Allow-Origin": "*",
+        // Origin: '*',
+        // Accept: 'application/json',
+      },
+    }).catch((e) => console.log(e));
+    result = await result.json();
+    // console.log(result)
+    setsubCategories(result.data);
+  }
+
+  async function getstocktype() {
+    let result = await fetch("/api/get/stocktype.php", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json-patch+json",
+        "Access-Control-Allow-Origin": "*",
+        // Origin: '*',
+        // Accept: 'application/json',
+      },
+    }).catch((e) => console.log(e));
+    result = await result.json();
+    // console.log(result)
+    setstocktype(result.data);
+  }
+
+  async function getsubcategory() {
+    let result = await fetch("/api/get/supcategories.php", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json-patch+json",
+        "Access-Control-Allow-Origin": "*",
+        // Origin: '*',
+        // Accept: 'application/json',
+      },
+    }).catch((e) => console.log(e));
+    result = await result.json();
+    // console.log(result)
+    setsubCategories(result.data);
+  }
+
+  async function addproduct() {
+    if (secureLocalStorage.getItem("_tocken") !== null) {
+      const jwtsecure = secureLocalStorage.getItem("_tocken");
+      // console.log(jwtsecure)
+      const accessToken = jwtDecode(jwtsecure);
+      const jsonString = JSON.stringify({});
+      const formData = new FormData();
+
+      // Add text data
+      formData.append("namear", productnamear);
+      formData.append("nameen", productnameen);
+      formData.append("discriptionar", productdescriptionar);
+      formData.append("discriptionen", productdescriptionen);
+      formData.append("subcategoryid", subcategoryinproduct);
+      formData.append("stocktype", stocktypeinproduct);
+      formData.append("categoryid", categoryinproduct);
+      formData.append("price", productprice);
+      setSpinner(false);
+      // Add image data
+      // const imageInput = document.getElementById('fileInput'); // Adjust the ID based on your HTML input element
+      // const imageFile = imageInput.files[0];
+      formData.append("image", productimage);
+      let result;
+      try {
+        result = await fetch("/api/auth/admin/product.php?add", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            // 'X-Custom-Header': `Bearer ${jwtsecure}`
+          },
+        });
+        if (result.ok) {
+          setSpinner("loading");
+        } else {
+          throw new Error(`HTTP error! Status: ${result.status}`);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        // Handle the error, e.g., display an error message or reset spinner
+        setSpinner("error");
+      }
+      if (result) {
+        result = await result.json();
+        // Process the JSON response
+      }
+      // console.log(result)
+      router.push("/dashboard/products");
+    } else {
+      router.push("/login");
+    }
+  }
+  async function showimage(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const imagePreview = document.getElementById("imageinpno");
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.width = 200; // Set width for preview image
+        imagePreview.innerHTML = ""; // Clear previous preview
+        imagePreview.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      imagePreview.innerHTML = "No image selected";
+    }
+  }
+  return (
+    <div
+      className="w-full mx-auto p-4 flex items-center flex-col gap-5 mt-10 max-[800px]:p-1"
+      style={{ direction: "rtl" }}
+    >
       {/* add img to product */}
-      <div className='w-[60%] max-[800px]:w-[80%] h-[350px] rounded-lg border flex item-center justify-center mt-3'>
-        <label htmlFor='addImg' className='w-full h-full flex items-center justify-center'>Add Image</label>
-        <input type='file' id='addImg' className='hidden'/>
+      <div className="w-[60%] max-[800px]:w-[80%] h-[350px] rounded-lg border flex items-center justify-center mt-3">
+        {/* <label
+          htmlFor="addImg"
+          className="w-full h-full flex items-center justify-center"
+        >
+          Add Image
+        </label> */}
+        <img src="/imageup.png" alt="" />
+        <input
+          type="file"
+          name="image"
+          onChange={(e) => {
+            showimage(e), setImage(e.target.files[0]);
+          }}
+        />
+        <div id="imageinpno" className="productimage"></div>
       </div>
 
       {/* form add product*/}
       <form className="mt-4 w-[60%] max-[800px]:w-[95%] max-[500px]:w-full">
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="nameArabic">اسم المنتج</label>
-          <input type="text" id="nameArabic" placeholder="ادخل اسم المنتج" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="nameArabic"
+          >
+            اسم المنتج
+          </label>
+          <input
+            type="text"
+            id="nameArabic"
+            placeholder="ادخل اسم المنتج"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="nameEnglish">إسم ألمنتج بالانجليزيه </label>
-          <input type="text" id="nameEnglish" placeholder="ادخل اسم المنتج بالانجليزية" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="nameEnglish"
+          >
+            إسم ألمنتج بالانجليزيه{" "}
+          </label>
+          <input
+            type="text"
+            id="nameEnglish"
+            placeholder="ادخل اسم المنتج بالانجليزية"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="amount"> الكمية </label>
-          <input type="text" id="amount" placeholder="ادخل الكمية" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="amount"
+          >
+            {" "}
+            الكمية{" "}
+          </label>
+          <input
+            type="text"
+            id="amount"
+            placeholder="ادخل الكمية"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="price"> سعر المنتج </label>
-          <input type="number" id="price" placeholder="ادخل سعر المنتج" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="price"
+          >
+            {" "}
+            سعر المنتج{" "}
+          </label>
+          <input
+            type="number"
+            id="price"
+            placeholder="ادخل سعر المنتج"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="detailsArabic"> تفاصيل المنتج بالعربية</label>
-          <textarea type="text" id="detailsArabic" placeholder="ادخل تفاصيل المنتج بالعربية" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" ></textarea>
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="detailsArabic"
+          >
+            {" "}
+            تفاصيل المنتج بالعربية
+          </label>
+          <textarea
+            type="text"
+            id="detailsArabic"
+            placeholder="ادخل تفاصيل المنتج بالعربية"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          ></textarea>
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="detailsEnglish"> تفاصيل المنتج بالانجليزية </label>
-          <textarea type="text" id="detailsEnglish" placeholder="ادخل تفاصيل المنتج بالانجليزية" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" ></textarea>
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="detailsEnglish"
+          >
+            {" "}
+            تفاصيل المنتج بالانجليزية{" "}
+          </label>
+          <textarea
+            type="text"
+            id="detailsEnglish"
+            placeholder="ادخل تفاصيل المنتج بالانجليزية"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          ></textarea>
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="mainCategory">التصنيف الرئيسي </label>
-          <input type="text" id="mainCategory" placeholder="ادخل التصنيف الرئيسي" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="mainCategory"
+          >
+            التصنيف الرئيسي{" "}
+          </label>
+          <input
+            type="text"
+            id="mainCategory"
+            placeholder="ادخل التصنيف الرئيسي"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
         <div className="mb-4 w-full">
-          <label className="block text-[#224971] text-sm font-bold mb-2" htmlFor="kilograms"> الوزن </label>
-          <input type="number" id="kilograms" placeholder="ادخل الوزن" className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" />
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="kilograms"
+          >
+            {" "}
+            الوزن{" "}
+          </label>
+          <input
+            type="number"
+            id="kilograms"
+            placeholder="ادخل الوزن"
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
-        <div className='flex items-center gap-5'>
-        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]">
-        اضافة منتج جديد
-        </button>
-        <Link href='/products' type="submit" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]">
-          إلغاء 
-        </Link>
+        <div className="flex items-center gap-5">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
+          >
+            اضافة منتج جديد
+          </button>
+          <Link
+            href="/products"
+            type="submit"
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
+          >
+            إلغاء
+          </Link>
         </div>
       </form>
-
     </div>
-  )
+  );
 }
 
-export default AddProduct
+export default AddProduct;

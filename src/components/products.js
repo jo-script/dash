@@ -8,7 +8,7 @@ import { products } from "../app/products/productData.js";
 import { useRouter } from "next/navigation.js";
 import useAuth from "@/HOC/isAuthenticated.js";
 
-function Products() {
+function Products({ products }) {
   const router = useRouter();
   const isAuthenticated = useAuth();
   useEffect(() => {
@@ -32,18 +32,20 @@ function Products() {
         >
           <div>
             <Image
-              src={product.img}
-              alt={product.name}
+              src={product.image}
+              alt={product.name_ar}
+              width={100}
+              height={100}
               className="w-full h-[100px] hover:scale-[1.03] transition-[all_.2s]"
             />
             <div className="w-full items-start flex flex-col font-semibold text-[#142433] px-2">
-              <p className="mt-3 text-[16px]">{product.nameArabic}</p>
+              <p className="mt-3 text-[16px]">{product.name_ar}</p>
               <div className="flex items-center justify-between w-full ] ">
                 <p className="text-[#8797A8] text-[14px]">
-                  {product.mainCategory}
+                  {product.category.name_ar}
                 </p>
                 <p className="text-[#2DA905] text-[14px]">
-                  {product.kilograms}{" "}
+                  {product.stocktype.stocktype_name_ar}{" "}
                 </p>
               </div>
             </div>

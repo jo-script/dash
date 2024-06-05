@@ -53,7 +53,10 @@ function Page() {
         const profile = {
           name: `${result.user.data.firstname} ${result.user.data.lastname}`,
           phone: result.user.data.phone,
-          address: result.user.data.address[0].address1,
+          address:
+            result.user.data?.address[0]?.address1 !== undefined
+              ? result.user.data.address[0]?.address1
+              : "",
           email: result.user.data.email,
           image: result.user.data.image,
         };
