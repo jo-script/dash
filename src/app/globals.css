@@ -581,3 +581,62 @@ cursor: pointer;
   width: 99%;
   margin: auto;
 }
+
+.inputfild {
+  width: 250px;
+  padding: 10px;
+  direction: rtl;
+  position: relative;
+  display: inline;
+}
+
+.inputfild input {
+  padding: 5px 5px;
+width: calc(100% - 30px);
+  background: 0;
+  position: relative;
+  z-index: 1;
+  margin: 5px;
+  border: 0;
+  border: 1px solid #163d64;
+  padding: 10px;
+  border-radius: 5px;
+}
+.inputfild input:focus-visible {
+outline: 0;
+  border: 1px solid #163d64;
+border: 0;
+}
+.inputfild input:focus {
+border: 0;
+  border: 1px solid #163d64;
+outline: 0;
+}
+
+.inputplaceholder {
+  padding: 15px 10px;
+  position: absolute;
+  top: 0px !important;
+  right: 0;
+  z-index: 0;
+transition: 1s;
+color: #163d64;
+  font-weight: bold;
+}
+textarea {
+width: calc(100% - 30px);
+  height: auto;
+  background: 0;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 12px;
+  margin: 5px 0px;
+  resize: none;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 3px;
+  border: 1px solid;
+  border-radius: 10px;
+}

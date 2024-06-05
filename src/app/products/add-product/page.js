@@ -207,7 +207,13 @@ function AddProduct() {
       </div>
 
       {/* form add product*/}
-      <form className="mt-4 w-[60%] max-[800px]:w-[95%] max-[500px]:w-full">
+      <form
+        className="mt-4 w-[60%] max-[800px]:w-[95%] max-[500px]:w-full"
+        onSubmit={(e) => {
+          e.preventDefault(), addproduct();
+        }}
+        method="post"
+      >
         <div className="mb-4 w-full">
           <label
             className="block text-[#224971] text-sm font-bold mb-2"
@@ -217,8 +223,9 @@ function AddProduct() {
           </label>
           <input
             type="text"
-            id="nameArabic"
-            placeholder="ادخل اسم المنتج"
+            placeholder="اسم المنتج بالعربية"
+            name="productnamear"
+            onValueChange={changeproductnamear}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -231,8 +238,9 @@ function AddProduct() {
           </label>
           <input
             type="text"
-            id="nameEnglish"
-            placeholder="ادخل اسم المنتج بالانجليزية"
+            placeholder=" اسم المنتج باالانجليزية"
+            name="productnameen"
+            onValueChange={changeproductnameen}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -261,8 +269,9 @@ function AddProduct() {
           </label>
           <input
             type="number"
-            id="price"
-            placeholder="ادخل سعر المنتج"
+            placeholder="سعر المنتج"
+            name="productprice"
+            onValueChange={changeproductprice}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -274,10 +283,16 @@ function AddProduct() {
             {" "}
             تفاصيل المنتج بالعربية
           </label>
+
           <textarea
-            type="text"
-            id="detailsArabic"
-            placeholder="ادخل تفاصيل المنتج بالعربية"
+            id="discriptionar"
+            name="discriptionar"
+            rows="5"
+            cols="33"
+            placeholder="معلومات عن المنتج بالعربية"
+            onChange={(e) => {
+              setProductdescriptionar(e.target.value);
+            }}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           ></textarea>
         </div>
@@ -290,9 +305,14 @@ function AddProduct() {
             تفاصيل المنتج بالانجليزية{" "}
           </label>
           <textarea
-            type="text"
-            id="detailsEnglish"
-            placeholder="ادخل تفاصيل المنتج بالانجليزية"
+            id="discriptionen"
+            name="discriptionen"
+            rows="5"
+            cols="33"
+            placeholder="معلومات عن المنتج بالانجليزية"
+            onChange={(e) => {
+              setProductdescriptionen(e.target.value);
+            }}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           ></textarea>
         </div>
@@ -303,12 +323,40 @@ function AddProduct() {
           >
             التصنيف الرئيسي{" "}
           </label>
-          <input
-            type="text"
-            id="mainCategory"
-            placeholder="ادخل التصنيف الرئيسي"
+          <select
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-          />
+            id="category"
+            onChange={(e) => {
+              setcategoryinproduct(e.target.value);
+            }}
+          >
+            {categories.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name_ar}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-4 w-full">
+          <label
+            className="block text-[#224971] text-sm font-bold mb-2"
+            htmlFor="mainCategory"
+          >
+            التصنيف الفرعي{" "}
+          </label>
+          <select
+            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+            id="supcategory"
+            onChange={(e) => {
+              setsubcategoryinproduct(e.target.value);
+            }}
+          >
+            {subcategories.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name_ar}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="mb-4 w-full">
           <label
@@ -316,21 +364,32 @@ function AddProduct() {
             htmlFor="kilograms"
           >
             {" "}
-            الوزن{" "}
+            نوع كمية المنتج{" "}
           </label>
-          <input
-            type="number"
-            id="kilograms"
-            placeholder="ادخل الوزن"
+
+          <select
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-          />
+            id="supcategory"
+            onChange={(e) => {
+              setstocktypeinproduct(e.target.value);
+            }}
+          >
+            {stocktype.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.stocktype_name_ar}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex items-center gap-5">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
+            className=" text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
           >
-            اضافة منتج جديد
+            <span className="btn long">
+              <img src="/plus.svg" alt="" width={50} height={50} />
+              <p>اضافة</p>
+            </span>
           </button>
           <Link
             href="/products"
