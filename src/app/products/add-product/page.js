@@ -134,7 +134,7 @@ function AddProduct() {
       formData.append("image", productimage);
       let result;
       try {
-        result = await fetch("/api/auth/admin/product.php?add", {
+        result = await fetch("/api/auth/supplier/product.php?add", {
           method: "POST",
           body: formData,
           headers: {
@@ -158,7 +158,7 @@ function AddProduct() {
         // Process the JSON response
       }
       // console.log(result)
-      router.push("/dashboard/products");
+      router.push("/products");
     } else {
       router.push("/login");
     }
@@ -225,7 +225,7 @@ function AddProduct() {
             type="text"
             placeholder="اسم المنتج بالعربية"
             name="productnamear"
-            onValueChange={changeproductnamear}
+            onChange={changeproductnamear}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -240,25 +240,11 @@ function AddProduct() {
             type="text"
             placeholder=" اسم المنتج باالانجليزية"
             name="productnameen"
-            onValueChange={changeproductnameen}
+            onChange={changeproductnameen}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="mb-4 w-full">
-          <label
-            className="block text-[#224971] text-sm font-bold mb-2"
-            htmlFor="amount"
-          >
-            {" "}
-            الكمية{" "}
-          </label>
-          <input
-            type="text"
-            id="amount"
-            placeholder="ادخل الكمية"
-            className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+
         <div className="mb-4 w-full">
           <label
             className="block text-[#224971] text-sm font-bold mb-2"
@@ -271,7 +257,7 @@ function AddProduct() {
             type="number"
             placeholder="سعر المنتج"
             name="productprice"
-            onValueChange={changeproductprice}
+            onChange={changeproductprice}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
