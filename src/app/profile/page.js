@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import logo from "../public/logo/logo.png";
+import secureLocalStorage from "react-secure-storage";
+import { jwtDecode } from "jwt-decode";
 
 function Page() {
   const [profile, setprofile] = useState({
-    namear: "",
+    name: "",
     phone: "",
     address: "",
+    email: "",
+    image: "",
   });
   let dataUser = [
     {
@@ -19,8 +23,11 @@ function Page() {
   ];
 
   useEffect(() => {
-    document.title = dataUser[0].name;
+    getprofile();
   }, []);
+  useEffect(() => {
+    document.title = `${profile.name}`;
+  }, [profile.name]);
 
   async function getprofile() {
     if (secureLocalStorage.getItem("_tocken") !== null) {
@@ -29,7 +36,7 @@ function Page() {
       const accessToken = jwtDecode(jwtsecure);
       console.log(accessToken);
       const jsonString = JSON.stringify({});
-      let result = await fetch("/api/auth/admin/profile.php?view", {
+      let result = await fetch("/api/auth/supplier/profile.php?view", {
         method: "POST",
         body: jsonString,
         headers: {
@@ -43,13 +50,34 @@ function Page() {
       // const messages = result.login.message
       const state = result.user.status;
       if (state == "success") {
-        const profile = result.user.data;
+        const profile = {
+          name: `${result.user.data.firstname} ${result.user.data.lastname}`,
+          phone: result.user.data.phone,
+          address:
+            result.user.data?.address[0]?.address1 !== undefined
+              ? result.user.data.address[0]?.address1
+              : "",
+          email: result.user.data.email,
+          image: result.user.data.image,
+        };
         setprofile(profile);
       } else {
-        setprofile("false");
+        setprofile({
+          name: "",
+          phone: "",
+          address: "",
+          email: "",
+          image: "",
+        });
       }
     } else {
-      setprofile(false);
+      setprofile({
+        name: "",
+        phone: "",
+        address: "",
+        email: "",
+        image: "",
+      });
     }
   }
 
@@ -58,7 +86,7 @@ function Page() {
       {dataUser.map((data, index) => (
         <div key={index} className="flex flex-col justify-start ">
           <Image
-            src={logo}
+            src={profile.image !== "" ? profile.image : "/ZKZg.gif"}
             width={220}
             height={220}
             alt=""
@@ -67,15 +95,15 @@ function Page() {
           <div className="mt-10 flex flex-col justify-start gap-4 border-t pt-8">
             <div className="pr-4">
               <h2 className="font-semibold text-[#142433] ">الإسم:</h2>
-              <p className="font-sm text-[#8797A8] ">{data.name}</p>
+              <p className="font-sm text-[#8797A8] ">{profile.name}</p>
             </div>
             <div className="pr-4 ">
               <h2 className="font-semibold text-[#142433]">الموبايل:</h2>
-              <p className="font-sm text-[#8797A8] ">{data.phone}</p>
+              <p className="font-sm text-[#8797A8] ">{profile.phone}</p>
             </div>
             <div className="pr-4 ">
               <h2 className="font-semibold text-[#142433]">ألعنوان:</h2>
-              <p className="font-sm text-[#8797A8] ">{data.address}</p>
+              <p className="font-sm text-[#8797A8] ">{profile.address}</p>
             </div>
           </div>
         </div>

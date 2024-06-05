@@ -56,7 +56,7 @@ const notify = () =>
     }
   );
 
-function Navbar() {
+function Navbar({ profilePhone, profileName, profileImg }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,6 +81,7 @@ function Navbar() {
   const handleLinkClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   async function logout() {
     console.log("logout clicked");
     if (secureLocalStorage.getItem("_tocken") !== null) {
@@ -89,7 +90,7 @@ function Navbar() {
       const accessToken = jwtDecode(jwtsecure);
       console.log(accessToken);
       const jsonString = JSON.stringify({});
-      let result = await fetch("/api/auth/admin/profile.php?logout", {
+      let result = await fetch("/api/auth/supplier/profile.php?logout", {
         method: "POST",
         body: jsonString,
         headers: {
@@ -99,7 +100,6 @@ function Navbar() {
         },
       }).catch((e) => console.log(e));
       result = await result.json();
-      secureLocalStorage.setItem("_tocken", null);
       console.log(result);
       // const messages = result.login.message
       const state = result.user.status;
@@ -117,7 +117,12 @@ function Navbar() {
   return (
     <div className="w-full h-[80px] px-[3%] flex items-center justify-between bg-[#dae6f2] text-[#224971] fixed top-0 z-50">
       <div className="w-[12%] flex items-center justify-between gap-10">
-        <Image src={logo} width={50} height={50} alt="" />
+        <Image
+          src={profileImg !== "" ? profileImg : "/ZKZg.gif"}
+          width={50}
+          height={50}
+          alt=""
+        />
         <Link href="/notification" className="relative">
           <IoMdNotifications className="scale-[2]" onClick={notify} />
           {notification > 0 && (
@@ -153,16 +158,11 @@ function Navbar() {
 
       {/* side bar */}
       <div
-        className={` ${
-          isMenuOpen ? "mr-[-270px]" : ""
+        className={` ${ isMenuOpen ? "mr-[-270px]" : ""
         }  w-[250px] h-[90vh] py-2 absolute top-[80px]  right-0 flex flex-col justify-between bg-white shadow-[5px_10px_8px_0_black] lg:mr-0 transition-[all_.3s]`}
-      >
-        <div
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className={`fixed left-0 top-[80px] w-[770px] h-[100vh] ${
-            isMenuOpen ? "hidden" : ""
-          } `}
-        ></div>
+        >
+          {/* backdiv side bar close on click */}
+        <div onClick={() => setIsMenuOpen(!isMenuOpen)} className={`fixed left-0 top-[80px] w-[770px] h-[100vh] z-[-1] ${isMenuOpen ? "hidden" : ""} `}></div>
         {/* links */}
         <div className=" w-full text-[19px] flex flex-col justify-center items-center gap-2 ">
           <Link
@@ -215,15 +215,15 @@ function Navbar() {
             style={{ direction: "rtl" }}
           >
             <Image
-              src={logo}
+              src={profileImg !== "" ? profileImg : "/ZKZg.gif"}
               alt=""
               width={50}
               height={50}
               className="rounded-full border "
             />
             <div>
-              <h3 className="text-[#142433] font-semibold">خزين البيت</h3>
-              <p className="text-[#65717d] text-sm ">0123456789</p>
+              <h3 className="text-[#142433] font-semibold">{profileName}</h3>
+              <p className="text-[#65717d] text-sm ">{profilePhone}</p>
             </div>
           </Link>
         </div>

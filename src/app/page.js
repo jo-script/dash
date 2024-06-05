@@ -23,6 +23,7 @@ export default function Home() {
     document.title = " الرئيسية";
     // if (!isAuthenticated) router.push("/login");
     console.log(isAuthenticated);
+    if (isAuthenticated === false) router.push("/login");
   }, []);
   
   useAuth()

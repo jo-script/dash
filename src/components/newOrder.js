@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -8,9 +8,40 @@ import { dataOrders } from '../app/order/new-order/dataOrder.js'; // import data
 import { MdDone } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { BiShow } from "react-icons/bi";
+import secureLocalStorage from 'react-secure-storage';
+import { jwtDecode } from 'jwt-decode';
 
 function NewOrder() {
-  useEffect(() => { document.title = 'الطلبات الجديدة' }, [])
+  const [newDeliveredOrders, setNewDeliveredOrders] = useState([])
+  useEffect(() => {
+
+    const NewDeliveredOrders = async () => {
+      const token = secureLocalStorage.getItem('_tocken');
+      if (token) {
+        const accessToken = jwtDecode(token);
+        try {
+          const response = await fetch('/api/auth/admin/orders.php?viewall=', {
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+
+          const data = await response.json();
+          setNewDeliveredOrders(data);
+        } catch (error) {
+          console.error('There was a problem with the fetch operation:', error);
+        }
+      }
+    };
+    NewDeliveredOrders()
+    console.log(newDeliveredOrders);
+    document.title = 'الطلبات الجديدة'
+  }, [])
 
   return (
     <div className='w-full flex flex-col items-center gap-3 mt-10'>
@@ -53,7 +84,7 @@ function NewOrder() {
             <Image src={order.client.imgProfile} alt='' width={50} height={50} />
             <p className='text-[#364e64] text-[17px]'>{order.client.name}</p>
           </div>
-          
+
         </div>
       ))}
     </div>
