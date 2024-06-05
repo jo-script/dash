@@ -56,20 +56,13 @@ const notify = () =>
     }
   );
 
-function Navbar() {
+function Navbar({ profilePhone, profileName, profileImg }) {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
   const [changes, setChanges] = useState(0);
   const [notification, setNotification] = useState(0);
-  const [profile, setprofile] = useState({
-    name: "",
-    phone: "",
-    address: "",
-    email: "",
-    image: "",
-  });
 
   useEffect(() => {
     document.title = "لوحة التحكم";
@@ -88,57 +81,7 @@ function Navbar() {
   const handleLinkClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-  async function getprofile() {
-    if (secureLocalStorage.getItem("_tocken") !== null) {
-      const jwtsecure = secureLocalStorage.getItem("_tocken");
-      console.log(jwtsecure);
-      const accessToken = jwtDecode(jwtsecure);
-      console.log(accessToken);
-      const jsonString = JSON.stringify({});
-      let result = await fetch("/api/auth/supplier/profile.php?view", {
-        method: "POST",
-        body: jsonString,
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-          // 'X-Custom-Header': `Bearer ${jwtsecure}`
-        },
-      }).catch((e) => console.log(e));
-      result = await result.json();
-      console.log(result);
-      // const messages = result.login.message
-      const state = result.user.status;
-      if (state == "success") {
-        const profile = {
-          name: `${result.user.data.firstname} ${result.user.data.lastname}`,
-          phone: result.user.data.phone,
-          address: result.user.data.address[0].address1,
-          email: result.user.data.email,
-          image: result.user.data.image,
-        };
-        setprofile(profile);
-      } else {
-        setprofile({
-          name: "",
-          phone: "",
-          address: "",
-          email: "",
-          image: "",
-        });
-      }
-    } else {
-      setprofile({
-        name: "",
-        phone: "",
-        address: "",
-        email: "",
-        image: "",
-      });
-    }
-  }
-  useEffect(() => {
-    getprofile();
-  }, []);
+
   async function logout() {
     console.log("logout clicked");
     if (secureLocalStorage.getItem("_tocken") !== null) {
@@ -174,7 +117,12 @@ function Navbar() {
   return (
     <div className="w-full h-[80px] px-[3%] flex items-center justify-between bg-[#dae6f2] text-[#224971] fixed top-0 z-50">
       <div className="w-[12%] flex items-center justify-between gap-10">
-        <Image src={logo} width={50} height={50} alt="" />
+        <Image
+          src={profileImg !== "" ? profileImg : "/ZKZg.gif"}
+          width={50}
+          height={50}
+          alt=""
+        />
         <Link href="/notification" className="relative">
           <IoMdNotifications className="scale-[2]" onClick={notify} />
           {notification > 0 && (
@@ -272,15 +220,15 @@ function Navbar() {
             style={{ direction: "rtl" }}
           >
             <Image
-              src={profile.image !== "" ? profile.image : "/ZKZg.gif"}
+              src={profileImg !== "" ? profileImg : "/ZKZg.gif"}
               alt=""
               width={50}
               height={50}
               className="rounded-full border "
             />
             <div>
-              <h3 className="text-[#142433] font-semibold">خزين البيت</h3>
-              <p className="text-[#65717d] text-sm ">0123456789</p>
+              <h3 className="text-[#142433] font-semibold">{profileName}</h3>
+              <p className="text-[#65717d] text-sm ">{profilePhone}</p>
             </div>
           </Link>
         </div>
