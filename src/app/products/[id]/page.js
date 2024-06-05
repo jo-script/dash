@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 
 const ProductDetail = ({ params }) => {
+  const router = useRouter();
   const [product, setProduct] = useState();
   const { id } = params;
   const getProduct = async () => {
@@ -33,6 +34,37 @@ const ProductDetail = ({ params }) => {
       // const messages = result.login.message
       const state = result.status;
       if (state == "success") {
+        setProduct(result.data);
+      } else {
+        console.log("error fetching products");
+      }
+    } else {
+      console.log("error fetching products");
+    }
+  };
+  const deleteProduct = async () => {
+    if (secureLocalStorage.getItem("_tocken") !== null) {
+      const jwtsecure = secureLocalStorage.getItem("_tocken");
+      console.log(jwtsecure);
+      const accessToken = jwtDecode(jwtsecure);
+      console.log(accessToken);
+      const jsonString = JSON.stringify({});
+      let result = await fetch(`/api/auth/supplier/product.php?delete=${id}`, {
+        method: "POST",
+        body: jsonString,
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          // 'X-Custom-Header': `Bearer ${jwtsecure}`
+        },
+      }).catch((e) => console.log(e));
+      result = await result.json();
+      console.log(result);
+
+      // const messages = result.login.message
+      const state = result.status;
+      if (state == "success") {
+        console.log(result);
         setProduct(result.data);
       } else {
         console.log("error fetching products");
@@ -78,10 +110,7 @@ const ProductDetail = ({ params }) => {
             </h1>
             <p className=" text-[19px] text-[#3a5069]">{product.name_en}</p>
           </div>
-          <div className="flex items-center justify-center gap-3">
-            <h1 className="font-bold text-[16px] text-[#224971]">الكمية:</h1>
-            <p className=" text-[19px] text-[#3a5069]">{product.stock}</p>
-          </div>
+
           <div className="flex items-center justify-center gap-3">
             <h1 className="font-bold text-[16px] text-[#224971]">
               سعر المنتج :
@@ -130,17 +159,21 @@ const ProductDetail = ({ params }) => {
           <Link
             href={`/edit-products/${product.id}`}
             type="submit"
-            className=" w-[120px] bg-blue-500 hover:bg-blue-700 text-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
+            className="bg-[#224971] w-[120px]  text-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
           >
             تعديل
           </Link>
-          <Link
-            href="#"
+          <button
+            onClick={async (e) => {
+              e.preventDefault();
+              await deleteProduct();
+              router.push("/products");
+            }}
             type="submit"
             className=" w-[120px] bg-red-500 hover:bg-red-700 text-center text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
           >
             حذف
-          </Link>
+          </button>
         </div>
       </div>
     </div>

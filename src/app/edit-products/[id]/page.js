@@ -446,9 +446,12 @@ const EditProduct = ({ params }) => {
         <div className="flex items-center gap-5 mb-4">
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
+            className=" text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-[all_.1s]"
           >
-            حفظ التعديلات
+            <span className="btn long">
+              {/* <img src="/plus.svg" alt="" width={50} height={50} /> */}
+              <p>حفظ التعديلات</p>
+            </span>
           </button>
           <Link
             href="/products"

@@ -195,7 +195,7 @@ function AddProduct() {
       <div className=" flex justify-center w-full">
         <div className="addproductimage">
           <div id="imageinpno" className="productimage">
-            <img id="#imageinpnocover" src="/imageup.png" width="100px" />
+            <img id="#imageinpnocover" src="/imageup.png" />
           </div>
           <input
             id="inputImage"
@@ -263,7 +263,9 @@ function AddProduct() {
             type="number"
             placeholder="سعر المنتج"
             name="productprice"
-            onChange={changeproductprice}
+            onChange={(e) => {
+              setProductprice(e.target.value);
+            }}
             className=" w-full appearance-none border border-[#22497173] text-gray-600 rounded-md  py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
