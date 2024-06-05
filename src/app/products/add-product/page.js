@@ -238,7 +238,7 @@ function AddProduct() {
             className="block text-[#224971] text-sm font-bold mb-2"
             htmlFor="nameEnglish"
           >
-            إسم ألمنتج بالانجليزيه{" "}
+            اسم ألمنتج بالانجليزيه{" "}
           </label>
           <input
             type="text"
