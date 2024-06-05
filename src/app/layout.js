@@ -76,10 +76,18 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     getprofile();
   }, []);
+
   return (
     <html lang="en">
       <body className={tajawal.className}>
-        {!isLoginPage && <Navbar />} {/* Render Navbar except on login page */}
+        {!isLoginPage && (
+          <Navbar
+            profilePhone={profile.phone}
+            profileName={profile.name}
+            profileImg={profile.image}
+          />
+        )}{" "}
+        {/* Render Navbar except on login page */}
         {children}
       </body>
     </html>

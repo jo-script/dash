@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import jwtDecode from "jwt-decode"; // Assuming you have this library installed
+import { jwtDecode } from "jwt-decode";
 import secureLocalStorage from "react-secure-storage";
 // import { jwtDecode } from "jwt-decode";
 
@@ -11,8 +11,7 @@ const useAuth = () => {
   const jwtsecure = secureLocalStorage.getItem("_tocken");
   if (!jwtsecure) {
     // Redirect to login page if token is not present
-    router.push("/login");
-    return;
+    return false;
   }
 
   try {

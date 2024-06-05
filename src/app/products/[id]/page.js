@@ -78,7 +78,15 @@ const ProductDetail = ({ params }) => {
     getProduct();
   }, []);
   if (!product) {
-    return <div>Product not found</div>;
+    return (
+      <Image
+        src={"/ZKZg.gif"}
+        width={220}
+        height={220}
+        alt=""
+        className="rounded-full border"
+      />
+    );
   }
 
   return (

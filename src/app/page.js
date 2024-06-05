@@ -19,14 +19,52 @@ import { jwtDecode } from "jwt-decode";
 export default function Home() {
   const router = useRouter();
   const isAuthenticated = useAuth();
+  const [analytics, setAnalytics] = useState({
+    customer_count: 0,
+    total_revenue: 0,
+    top_sold_products: [],
+  });
+  async function getAnalytics() {
+    if (secureLocalStorage.getItem("_tocken") !== null) {
+      const jwtsecure = secureLocalStorage.getItem("_tocken");
+      console.log(jwtsecure);
+      const accessToken = jwtDecode(jwtsecure);
+      console.log(accessToken);
+      const jsonString = JSON.stringify({});
+      let result = await fetch("/api/auth/supplier/orders.php?analytics", {
+        method: "POST",
+        body: jsonString,
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          // 'X-Custom-Header': `Bearer ${jwtsecure}`
+        },
+      }).catch((e) => console.log(e));
+      result = await result.json();
+      console.log(result);
+      // const messages = result.login.message
+      const state = result.status;
+      if (state == "success") {
+        console.log(result);
+        setAnalytics({
+          customer_count: result.data.customer_count,
+          total_revenue: result.data.total_revenue,
+          top_sold_products: result.data.top_sold_products,
+        });
+      } else {
+      }
+    } else {
+    }
+  }
   useEffect(() => {
     document.title = " الرئيسية";
     // if (!isAuthenticated) router.push("/login");
     console.log(isAuthenticated);
     if (isAuthenticated === false) router.push("/login");
+    getAnalytics();
   }, []);
-  
-  useAuth()
+
+  useAuth();
   const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
   const [chartData, setChartData] = useState({
@@ -88,7 +126,9 @@ export default function Home() {
               </h3>
               <div className="w-[267px] max-[500px]:w-full max-[500px]:pr-3 h-[113px] bg-white mt-[8px] rounded-md flex flex-col items-center justify-center">
                 <div className=" max-[500px]:w-full flex items-center justify-center gap-1">
-                  <h1 className="text-[#224971] text-[40px] font-bold">5450</h1>
+                  <h1 className="text-[#224971] text-[40px] font-bold">
+                    {analytics.total_revenue}
+                  </h1>
                 </div>
               </div>
             </div>
@@ -99,7 +139,9 @@ export default function Home() {
               </h3>
               <div className="w-[267px] max-[500px]:w-full max-[500px]:pr-3 h-[113px] bg-white mt-[8px] rounded-md flex flex-col items-center justify-center">
                 <div className=" max-[500px]:w-full flex items-center justify-center gap-1">
-                  <h1 className="text-[#224971] text-[40px] font-bold">465</h1>
+                  <h1 className="text-[#224971] text-[40px] font-bold">
+                    {analytics.customer_count}
+                  </h1>
                 </div>
               </div>
             </div>
@@ -117,82 +159,36 @@ export default function Home() {
               </h3>
             </div>
             <div className="mt-[26px] w-full">
-              <div className="w-full flex  items-center justify-start">
+              <div className="w-full flex  items-center justify-around">
                 <h3 className="w-[133px] text-[#142433] font-bold text-[16px] text-start">
                   إسم المنتج
                 </h3>
                 <h3 className="w-[160px] text-[#142433] font-bold text-[16px] text-start ">
                   إجمالي المبيعات
                 </h3>
-                <h3 className=" text-[#142433] font-bold text-[16px] text-start ">
-                  الحالة
-                </h3>
               </div>
 
-              <div className="mt-[30px] w-full">
-                <div className="w-full flex items-start justify-start">
-                  <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">
-                      {" "}
-                      تفاح
-                    </h4>
-                    <p className="text-[#506173] text-[16px]">فواكه</p>
+              {analytics.top_sold_products.length !== 0 &&
+                analytics.top_sold_products.map((product) => (
+                  <div className="mt-[30px] w-full" key={product.id}>
+                    <div className="w-full flex items-start justify-start">
+                      <div className="w-[133px]">
+                        <h4 className="text-[#506173] text-[16px] font-semibold">
+                          {" "}
+                          {product.name_ar}
+                        </h4>
+                        <p className="text-[#506173] text-[16px]">
+                          {product.supcategory.name_ar}
+                        </p>
+                      </div>
+                      <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">
+                        {" "}
+                        {product.price}
+                      </h4>
+                    </div>
                   </div>
-                  <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">
-                    {" "}
-                    457
-                  </h4>
-                  <p className="font-semibold text-[#2DA905] text-[14px]">
-                    في المخزون{" "}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-[30px] w-full">
-                <div className="w-full flex items-start justify-start">
-                  <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">
-                      كول سلو
-                    </h4>
-                    <p className="text-[#506173] text-[16px]">
-                      الخضار والفواكه
-                    </p>
-                  </div>
-                  <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">
-                    234
-                  </h4>
-                  <p className="font-semibold text-[#2DA905] text-[14px]">
-                    في المخزون{" "}
-                  </p>
-                </div>
-              </div>
-              <div className="mt-[30px] w-full">
-                <div className="w-full flex items-start justify-start">
-                  <div className="w-[133px]">
-                    <h4 className="text-[#506173] text-[16px] font-semibold">
-                      باذنجان اسود
-                    </h4>
-                    <p className="text-[#506173] text-[16px]">الخضار </p>
-                  </div>
-                  <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">
-                    165
-                  </h4>
-                  <p className="font-semibold text-[#2DA905] text-[14px]">
-                    في المخزون{" "}
-                  </p>
-                </div>
-              </div>
+                ))}
             </div>
-          </div>
-        </div>
-        <div className="max-[500px]:w-[350px]">
-          <h1 className="text-white text-[24px] font-semibold">.</h1>
-          <div className="w-[350px] max-[500px]:w-full bg-[#DAE6F2] h-[360px] rounded-md flex flex-col items-center justify-center">
-            <Chart
-              options={chartData.options1}
-              series={chartData.series1}
-              type="donut"
-              width="380"
-            />
           </div>
         </div>
       </div>

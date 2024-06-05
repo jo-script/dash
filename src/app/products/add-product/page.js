@@ -76,7 +76,7 @@ function AddProduct() {
       },
     }).catch((e) => console.log(e));
     result = await result.json();
-    // console.log(result)
+    console.log(result);
     setsubCategories(result.data);
   }
 
@@ -91,7 +91,7 @@ function AddProduct() {
       },
     }).catch((e) => console.log(e));
     result = await result.json();
-    // console.log(result)
+    console.log(result);
     setstocktype(result.data);
   }
 
@@ -106,7 +106,7 @@ function AddProduct() {
       },
     }).catch((e) => console.log(e));
     result = await result.json();
-    // console.log(result)
+    console.log(result);
     setsubCategories(result.data);
   }
 

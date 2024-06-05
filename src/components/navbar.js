@@ -158,11 +158,17 @@ function Navbar({ profilePhone, profileName, profileImg }) {
 
       {/* side bar */}
       <div
-        className={` ${ isMenuOpen ? "mr-[-270px]" : ""
+        className={` ${
+          isMenuOpen ? "mr-[-270px]" : ""
         }  w-[250px] h-[90vh] py-2 absolute top-[80px]  right-0 flex flex-col justify-between bg-white shadow-[5px_10px_8px_0_black] lg:mr-0 transition-[all_.3s]`}
-        >
-          {/* backdiv side bar close on click */}
-        <div onClick={() => setIsMenuOpen(!isMenuOpen)} className={`fixed left-0 top-[80px] w-[770px] h-[100vh] z-[-1] ${isMenuOpen ? "hidden" : ""} `}></div>
+      >
+        {/* backdiv side bar close on click */}
+        <div
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className={`fixed left-0 top-[80px] w-[770px] h-[100vh] z-[-1] ${
+            isMenuOpen ? "hidden" : ""
+          } `}
+        ></div>
         {/* links */}
         <div className=" w-full text-[19px] flex flex-col justify-center items-center gap-2 ">
           <Link
