@@ -1,199 +1,97 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { dataOrders } from '../../../order/new-order/dataOrder.js';
-import Link from 'next/link.js';
-import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
-const OrderDetail = ({ params }) => {
-  const { id } = params;
-  const order = dataOrders.find((order) => order.id === parseInt(id));
+const OrderDetail = () => {
+  const { id } = useParams();
+  const [order, setOrder] = useState([]);
+
+  useEffect(() => {
+    const fetchOrderDetail = async () => {
+      try {
+        const response = await fetch(`/api/auth/supplier/orders.php?cartstate=1`);
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setOrder(data);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+
+    fetchOrderDetail();
+  }, [id]);
+
+  console.log(order);
 
   if (!order) {
-    return <div>Order not found</div>;
+    return <div>Loading...</div>;
   }
 
   return (
-
     <div className='flex flex-col max-[900px]:items-center'>
-
-      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
-        <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
+      <div className="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
+        <table className="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
-              <th scope="col" class=" text-start px-6 py-3 text-[16px]">معلومات الطلب</th>
-              <th scope="col" class="px-6 py-3"> </th>
+              <th scope="col" className=" text-start px-6 py-3 text-[16px]">معلومات الطلب</th>
+              <th scope="col" className="px-6 py-3"></th>
             </tr>
           </thead>
           <tbody>
-            <tr class="bg-white text-black">
-              <th scope="row" class="w-2/4 text-start px-6 py-4 font-medium"> رقم الطلب </th>
-              <td class=" text-start px-6 py-4">{order.numberOrders}</td>
+            <tr className="bg-white text-black">
+              <th scope="row" className="w-2/4 text-start px-6 py-4 font-medium"> رقم الطلب </th>
+              <td className=" text-start px-6 py-4">{order.cartid}</td>
             </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">حالة الطلب</th>
-              <td class="px-6 py-4">White</td>
+            <tr className="bg-gray-200 text-black">
+              <th scope="row" className=" text-start px-6 py-4 font-medium ">حالة الطلب</th>
+              <td className="px-6 py-4">{order.cartstatear}</td>
             </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">عدد المنتجات</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
+            <tr className="bg-white text-black">
+              <th scope="row" className=" text-start px-6 py-4 font-medium ">عدد المنتجات</th>
+              <td className="px-6 py-4">{order.productsnumber}</td>
             </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">عدد القطع</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-
-      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
-        <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
-            <tr>
-              <th scope="col" class=" text-start px-6 py-3 text-[16px]">معلومات العميل</th>
-              <th scope="col" class="px-6 py-3"> </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white text-black">
-              <th scope="row" class="w-2/4 text-start px-6 py-4 font-medium">اسم العميل</th>
-              <td class=" text-start px-6 py-4">{order.numberOrders}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">الرقم التعريفي للعميل</th>
-              <td class="px-6 py-4">White</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium "> البريد الالكتروني	</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">رقم الهاتف	</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
+            <tr className="bg-gray-200 text-black">
+              <th scope="row" className="text-start px-6 py-4 font-medium ">عدد القطع</th>
+              <td className="px-6 py-4">{order.sumpieces}</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
-        <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
+      <div className="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
+        <table className="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
             <tr>
-              <th scope="col" class=" text-start px-6 py-3 text-[16px]">معلومات التوصيل</th>
-              <th scope="col" class="px-6 py-3"> </th>
+              <th scope="col" className=" text-start px-6 py-3 text-[16px]">معلومات العميل</th>
+              <th scope="col" className="px-6 py-3"> </th>
             </tr>
           </thead>
           <tbody>
-            <tr class="bg-white text-black">
-              <th scope="row" class="w-2/4 text-start px-6 py-4 font-medium">عنوان العميل	</th>
-              <td class=" text-start px-6 py-4">{order.numberOrders}</td>
+            <tr className="bg-white text-black">
+              <th scope="row" className="w-2/4 text-start px-6 py-4 font-medium">اسم العميل</th>
+              <td className=" text-start px-6 py-4">{order.firstname} {order.lastname} </td>
             </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">رقم التواصل</th>
-              <td class="px-6 py-4">White</td>
+            <tr className="bg-gray-200 text-black">
+              <th scope="row" className=" text-start px-6 py-4 font-medium ">الرقم التعريفي للعميل</th>
+              <td className="px-6 py-4">{order.username}</td>
             </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">خطوط الطول	</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
+            <tr className="bg-gray-200 text-black">
+              <th scope="row" className=" text-start px-6 py-4 font-medium ">البريد الالكتروني	</th>
+              <td className="px-6 py-4">{order.email}</td>
             </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">دوائر العرض	</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">خط طول المتجر</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">دائرة عرض المتجر</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">المسافة</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">مكان المتجر</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
+            <tr className="bg-gray-200 text-black">
+              <th scope="row" className=" text-start px-6 py-4 font-medium ">رقم الهاتف	</th>
+              <td className="px-6 py-4">{order.phone}</td>
             </tr>
           </tbody>
         </table>
       </div>
-
-      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
-        <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
-            <tr>
-              <th scope="col" class=" text-start px-6 py-3 text-[16px]">معلومات المنتجات</th>
-              <th scope="col" class="px-6 py-3"> </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white text-black">
-              <th scope="row" class="w-2/4 text-start px-6 py-4 font-medium">اسم المنتج</th>
-              <td class=" text-start px-6 py-4">{order.numberOrders}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">صورة المنتج</th>
-              <td class="px-6 py-4">White</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">رقم المنتج</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">التاجر</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">التصنيف</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class="text-start px-6 py-4 font-medium ">الكمية المطلوبة</th>
-              <td class="px-6 py-4">{order.numberPieces}</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">السعر</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="w-3/4 max-[900px]:w-full overflow-x-auto shadow-md sm:rounded-lg mt-10">
-        <table class="w-full text-sm text-start rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-[#dae6f2] uppercase bg-[#224971] ">
-            <tr>
-              <th scope="col" class=" text-start px-6 py-3 text-[16px]">معلومات الدفع</th>
-              <th scope="col" class="px-6 py-3"> </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="bg-white text-black">
-              <th scope="row" class="w-2/4 text-start px-6 py-4 font-medium">طريقة الدفع</th>
-              <td class=" text-start px-6 py-4">{order.numberOrders}</td>
-            </tr>
-            <tr class="bg-gray-200 text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">المبلغ المطلوب	</th>
-              <td class="px-6 py-4">White</td>
-            </tr>
-            <tr class="bg-white text-black">
-              <th scope="row" class=" text-start px-6 py-4 font-medium ">العملة</th>
-              <td class="px-6 py-4">{order.numberProducts}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className='my-10 flex items-center gap-6'>
-        <button className="w-40 bg-blue-500 hover:bg-blue-700 text-white px-2 py-[6px] rounded transition-[all_.1s]">قبول الطلب</button>
-        <button className="w-40 bg-red-500 hover:bg-red-700 text-white px-2 py-[6px] rounded transition-[all_.1s]">رفض الطلب</button>
-      </div>
-
     </div>
-
   );
 };
 
