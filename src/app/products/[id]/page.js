@@ -6,12 +6,12 @@ import Link from "next/link";
 import { products } from "../productData.js";
 import secureLocalStorage from "react-secure-storage";
 import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProductDetail = ({ params }) => {
   const [product, setProduct] = useState();
   const { id } = params;
-  const getProducts = async () => {
+  const getProduct = async () => {
     if (secureLocalStorage.getItem("_tocken") !== null) {
       const jwtsecure = secureLocalStorage.getItem("_tocken");
       console.log(jwtsecure);
@@ -33,7 +33,7 @@ const ProductDetail = ({ params }) => {
       // const messages = result.login.message
       const state = result.status;
       if (state == "success") {
-        setProduct(result.data[0]);
+        setProduct(result.data);
       } else {
         console.log("error fetching products");
       }
@@ -42,7 +42,9 @@ const ProductDetail = ({ params }) => {
     }
   };
   // const product = products.find((product) => product.id === parseInt(id));
-
+  useEffect(() => {
+    getProduct();
+  }, []);
   if (!product) {
     return <div>Product not found</div>;
   }
@@ -53,7 +55,12 @@ const ProductDetail = ({ params }) => {
       style={{ direction: "rtl" }}
     >
       <div className="w-[60%] h-[350px] rounded-lg border flex item-center justify-center mt-3 max-[480px]:w-full max-[480px]:h-auto">
-        <Image src={product.img} alt={product.name} />
+        <Image
+          src={product.image}
+          alt={product.name_ar}
+          width={300}
+          height={300}
+        />
       </div>
 
       <div className="w-full flex items-start justify-evenly gap-8 flex-wrap ">
@@ -63,17 +70,17 @@ const ProductDetail = ({ params }) => {
             <h1 className="font-bold text-[16px] text-[#224971]">
               إسم ألمنتج:
             </h1>
-            <p className=" text-[19px] text-[#3a5069]">{product.nameArabic}</p>
+            <p className=" text-[19px] text-[#3a5069]">{product.name_ar}</p>
           </div>
           <div className="flex items-center justify-center gap-3">
             <h1 className="font-bold text-[16px] text-[#224971]">
               إسم ألمنتج بالانجليزيه:
             </h1>
-            <p className=" text-[19px] text-[#3a5069]">{product.nameEnglish}</p>
+            <p className=" text-[19px] text-[#3a5069]">{product.name_en}</p>
           </div>
           <div className="flex items-center justify-center gap-3">
             <h1 className="font-bold text-[16px] text-[#224971]">الكمية:</h1>
-            <p className=" text-[19px] text-[#3a5069]">{product.amount}</p>
+            <p className=" text-[19px] text-[#3a5069]">{product.stock}</p>
           </div>
           <div className="flex items-center justify-center gap-3">
             <h1 className="font-bold text-[16px] text-[#224971]">
@@ -87,7 +94,7 @@ const ProductDetail = ({ params }) => {
               تفاصيل المنتج بالعربية:
             </h1>
             <p className=" text-[19px] text-[#3a5069]">
-              {product.detailsArabic}
+              {product.discription_ar}
             </p>
           </div>
           <div className="flex items-center justify-center gap-3">
@@ -95,7 +102,7 @@ const ProductDetail = ({ params }) => {
               تفاصيل المنتج بالانجليزية :
             </h1>
             <p className=" text-[19px] text-[#3a5069]">
-              {product.detailsEnglish}
+              {product.discription_en}
             </p>
           </div>
           <div className="flex items-center justify-center gap-3">
@@ -104,12 +111,17 @@ const ProductDetail = ({ params }) => {
               التصنيف الرئيسي:
             </h1>
             <p className=" text-[19px] text-[#3a5069]">
-              {product.mainCategory}
+              {product.category.name_ar}
             </p>
           </div>
           <div className="flex items-center justify-center gap-3">
-            <p className=" font-bold  text-[16px] text-[#224971]"> ألوزن:</p>
-            <p className="  text-[19px] text-[#3a5069]">{product.kilograms}</p>
+            <p className=" font-bold  text-[16px] text-[#224971]">
+              {" "}
+              نوع الكمية:
+            </p>
+            <p className="  text-[19px] text-[#3a5069]">
+              {product.stocktype.stocktype_name_ar}
+            </p>
           </div>
         </div>
 
