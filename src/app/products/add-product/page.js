@@ -21,7 +21,9 @@ function AddProduct() {
   const [subcategories, setsubCategories] = useState(Array);
   const [stocktype, setstocktype] = useState(Array);
   const [categoryinproduct, setcategoryinproduct] = useState(1);
-  const [subcategoryinproduct, setsubcategoryinproduct] = useState(1);
+  const [subcategoryinproduct, setsubcategoryinproduct] = useState([
+    { id: "", name_ar: "" },
+  ]);
   const [stocktypeinproduct, setstocktypeinproduct] = useState(0);
   const [productimage, setImage] = useState("");
   const [Spinner, setSpinner] = useState("loading");
@@ -46,7 +48,7 @@ function AddProduct() {
     // Set the document title when the component mounts
     document.title = "اضافة منتج جديد";
     getcategory();
-    getsubcategory();
+    // getsubcategory();
     getstocktype();
     setSpinner("get");
   }, []);
@@ -65,20 +67,6 @@ function AddProduct() {
     // console.log(result)
     setCategories(result.data);
   }
-  async function getsubcategory() {
-    let result = await fetch("/api/get/supcategories.php", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json-patch+json",
-        "Access-Control-Allow-Origin": "*",
-        // Origin: '*',
-        // Accept: 'application/json',
-      },
-    }).catch((e) => console.log(e));
-    result = await result.json();
-    console.log(result);
-    setsubCategories(result.data);
-  }
 
   async function getstocktype() {
     let result = await fetch("/api/get/stocktype.php", {
@@ -95,21 +83,27 @@ function AddProduct() {
     setstocktype(result.data);
   }
 
-  async function getsubcategory() {
-    let result = await fetch("/api/get/supcategories.php", {
-      method: "GET",
-      headers: {
-        "content-type": "application/json-patch+json",
-        "Access-Control-Allow-Origin": "*",
-        // Origin: '*',
-        // Accept: 'application/json',
-      },
-    }).catch((e) => console.log(e));
+  async function getsubcategory(categoryId) {
+    let result = await fetch(
+      `/api/get/supcategories.php?categoryid=${categoryId}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json-patch+json",
+          "Access-Control-Allow-Origin": "*",
+          // Origin: '*',
+          // Accept: 'application/json',
+        },
+      }
+    ).catch((e) => console.log(e));
     result = await result.json();
     console.log(result);
     setsubCategories(result.data);
   }
-
+  useEffect(() => {
+    console.log(categoryinproduct);
+    getsubcategory(categoryinproduct);
+  }, [categoryinproduct]);
   async function addproduct() {
     if (secureLocalStorage.getItem("_tocken") !== null) {
       const jwtsecure = secureLocalStorage.getItem("_tocken");
