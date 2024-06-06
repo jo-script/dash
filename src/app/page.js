@@ -24,6 +24,35 @@ export default function Home() {
     total_revenue: 0,
     top_sold_products: [],
   });
+  const [supcategories, setSupCategories] = useState([
+    {
+      id: "",
+      value: {},
+    },
+  ]);
+
+  async function getsubcategory(categoryId) {
+    let result = await fetch(
+      `/api/get/supcategories.php?subcategoryid=${categoryId}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json-patch+json",
+          "Access-Control-Allow-Origin": "*",
+          // Origin: '*',
+          // Accept: 'application/json',
+        },
+      }
+    ).catch((e) => console.log(e));
+    result = await result.json();
+    console.log(result.data);
+    setSupCategories((oldSupCategories) => [
+      ...oldSupCategories,
+      { id: result.data[0].id, value: result.data[0].name_ar },
+    ]);
+    console.log(supcategories);
+  }
+
   async function getAnalytics() {
     if (secureLocalStorage.getItem("_tocken") !== null) {
       const jwtsecure = secureLocalStorage.getItem("_tocken");
@@ -41,21 +70,32 @@ export default function Home() {
         },
       }).catch((e) => console.log(e));
       result = await result.json();
-      console.log(result);
       // const messages = result.login.message
-      const state = result.status;
+      const state = result.analytics.status;
       if (state == "success") {
         console.log(result);
+        console.log(result.analytics.data.customer_count);
+        console.log(result.analytics.data.total_revenue);
+        console.log(result.analytics.data.top_sold_products);
         setAnalytics({
-          customer_count: result.data.customer_count,
-          total_revenue: result.data.total_revenue,
-          top_sold_products: result.data.top_sold_products,
+          customer_count: result.analytics.data.customer_count,
+          total_revenue: result.analytics.data.total_revenue,
+          top_sold_products: result.analytics.data.top_sold_products,
         });
       } else {
       }
     } else {
     }
   }
+
+  useEffect(() => {
+    analytics.top_sold_products.map(async (i) => {
+      const sub = await getsubcategory(i.sup_category);
+      console.log(i.sup_category);
+      console.log(supcategories);
+    });
+  }, [analytics]);
+
   useEffect(() => {
     document.title = " الرئيسية";
     // if (!isAuthenticated) router.push("/login");
@@ -178,7 +218,7 @@ export default function Home() {
                           {product.name_ar}
                         </h4>
                         <p className="text-[#506173] text-[16px]">
-                          {product.supcategory.name_ar}
+                          {product.supcategory}
                         </p>
                       </div>
                       <h4 className=" w-[160px] [font-semibold pr-10 text-[#224971]">
