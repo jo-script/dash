@@ -10,9 +10,11 @@ import { IoMdClose } from "react-icons/io";
 import { BiShow } from "react-icons/bi";
 import secureLocalStorage from "react-secure-storage";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation.js";
 // import jwtDecode from 'jwt-decode'; // Corrected import
 
 function NewOrder() {
+  const router = useRouter();
   const [newDeliveredOrders, setNewDeliveredOrders] = useState(null); // Initialize as null
   const [data, setData] = useState([]);
   const NewDeliveredOrders = async () => {
@@ -42,7 +44,75 @@ function NewOrder() {
       }
     }
   };
+  async function approveorder(cartid) {
+    if (secureLocalStorage.getItem("_tocken") !== null) {
+      const jwtsecure = secureLocalStorage.getItem("_tocken");
+      // console.log(jwtsecure)
+      const accessToken = jwtDecode(jwtsecure);
+      const jsonString = JSON.stringify({});
+      let result = await fetch(
+        "/api/auth/supplier/orders.php?approve=" + cartid,
+        {
+          method: "POST",
+          body: jsonString,
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            // 'X-Custom-Header': `Bearer ${jwtsecure}`
+          },
+        }
+      ).catch((e) => console.log(e));
+      result = await result.json();
+      console.log(result);
+      // const messages = result.login.message
+      const state = result.cart.status;
+      if (state == "success") {
+        const cartelement = document.querySelectorAll(
+          '[orderid="' + cartid + '"]'
+        );
+        cartelement.forEach((element) => {
+          element.remove();
+        });
+      } else {
+      }
+    } else {
+    }
+  }
 
+  async function cancelorder(cartid) {
+    if (secureLocalStorage.getItem("_tocken") !== null) {
+      const jwtsecure = secureLocalStorage.getItem("_tocken");
+      // console.log(jwtsecure)
+      const accessToken = jwtDecode(jwtsecure);
+      const jsonString = JSON.stringify({});
+      let result = await fetch(
+        "/api/auth/supplier/orders.php?cancel=" + cartid,
+        {
+          method: "POST",
+          body: jsonString,
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            // 'X-Custom-Header': `Bearer ${jwtsecure}`
+          },
+        }
+      ).catch((e) => console.log(e));
+      result = await result.json();
+      console.log(result);
+      // const messages = result.login.message
+      const state = result.cart.status;
+      if (state == "success") {
+        const cartelement = document.querySelectorAll(
+          '[orderid="' + cartid + '"]'
+        );
+        cartelement.forEach((element) => {
+          element.remove();
+        });
+      } else {
+      }
+    } else {
+    }
+  }
   useEffect(() => {
     NewDeliveredOrders();
     document.title = "الطلبات الجديدة";
@@ -71,11 +141,23 @@ function NewOrder() {
               <span>عرض</span>
               <BiShow />
             </Link>
-            <button className="flex items-center gap-2 px-2 pb-[2px] rounded-full hover:bg-green-400 hover:text-white transition-[all_.1s]">
+            <button
+              className="flex items-center gap-2 px-2 pb-[2px] rounded-full hover:bg-green-400 hover:text-white transition-[all_.1s]"
+              onClick={async () => {
+                await approveorder(order.cartid);
+                router.push(`/order/prepare-order/${order.cartid}`);
+              }}
+            >
               <span>قبول</span>
               <MdDone />
             </button>
-            <button className="flex items-center gap-2 px-2 pb-[2px] rounded-full hover:bg-red-400 hover:text-white transition-[all_.1s]">
+            <button
+              className="flex items-center gap-2 px-2 pb-[2px] rounded-full hover:bg-red-400 hover:text-white transition-[all_.1s]"
+              onClick={async () => {
+                await cancelorder(order.cartid);
+                router.push(`/order/canceled-order/${order.cartid}`);
+              }}
+            >
               <span>رفض</span>
               <IoMdClose />
             </button>
