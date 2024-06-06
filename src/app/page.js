@@ -120,31 +120,164 @@ export default function Home() {
     series1: [44, 55, 41, 17, 44],
   });
 
+  const [newNumber, setNewNumber] = useState(0);
+  const [deliveredNumber, setDeliveredNumber] = useState(0);
+  const [preparedNumber, setPreparedNumber] = useState(0);
+  const [cancelledNumber, setCancelledNumber] = useState(0);
+
+  // title page
+  useEffect(() => {
+    document.title = "الطلبات";
+  }, []);
+
+  const NewDeliveredOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=1",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setNewNumber(data.cart.data.orders.length);
+        console.log(newNumber);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  const DeliveredOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=4",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setDeliveredNumber(data.cart.data.orders.length);
+        console.log(deliveredNumber);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  const PreparedOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=2",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setPreparedNumber(data.cart.data.orders.length);
+        console.log(preparedNumber);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  const cancelledOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=5",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setCancelledNumber(data.cart.data.orders.length);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    NewDeliveredOrders();
+    DeliveredOrders();
+    PreparedOrders();
+    cancelledOrders();
+  }, []);
   // data order card
   let orderCard = [
     {
-      title: "كل الطلبات",
+      title: "الطلبات الجديدة",
       icon: <MdOutlineNewspaper className="scale-[1.3]" />,
-      number: "8",
+      number: newNumber,
       link: "/order/new-order",
     },
     {
-      title: "  الطلبات الجديدة",
+      title: "طلبات جاري تحضيرها",
       icon: <TbTruckDelivery className="scale-[1.3]" />,
-      number: "8",
+      number: preparedNumber,
       link: "/order/prepare-order",
     },
     {
       title: "طلبات تم توصيلها",
       icon: <TbTruckDelivery className="scale-[1.3]" />,
-      number: "8",
+      number: deliveredNumber,
       link: "/order/delivered",
     },
+    // {
+    //   title: 'الطلبات مجدولة',
+    //   icon: <TbTruckLoading className='scale-[1.3]' />,
+    //   number: '22',
+    //   link: '/order/canceled-order'
+    // },
     {
       title: "طلبات مرفوضه",
       icon: <IoMdCloseCircleOutline className="scale-[1.3]	" />,
-      number: "8",
-      link: "",
+      number: cancelledNumber,
+      link: "/order/canceled-order",
     },
   ];
 

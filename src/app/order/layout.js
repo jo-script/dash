@@ -9,6 +9,135 @@ import { TbTruckLoading } from "react-icons/tb";
 
 export default function RootLayout({ children }) {
   // data links order
+  const [newNumber, setNewNumber] = useState(0);
+  const [deliveredNumber, setDeliveredNumber] = useState(0);
+  const [preparedNumber, setPreparedNumber] = useState(0);
+  const [cancelledNumber, setCancelledNumber] = useState(0);
+
+  // title page
+  useEffect(() => {
+    document.title = "الطلبات";
+  }, []);
+
+  const NewDeliveredOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=1",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setNewNumber(data.cart.data.orders.length);
+        console.log(newNumber);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  const DeliveredOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=4",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setDeliveredNumber(data.cart.data.orders.length);
+        console.log(deliveredNumber);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  const PreparedOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=2",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setPreparedNumber(data.cart.data.orders.length);
+        console.log(preparedNumber);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  const cancelledOrders = async () => {
+    const token = secureLocalStorage.getItem("_tocken");
+    if (token) {
+      const accessToken = jwtDecode(token);
+      try {
+        const response = await fetch(
+          "/api/auth/supplier/orders.php?cartstate=5",
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setCancelledNumber(data.cart.data.orders.length);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  };
+  useEffect(() => {
+    NewDeliveredOrders();
+    DeliveredOrders();
+    PreparedOrders();
+    cancelledOrders();
+  }, []);
+  // data order card
+
   const linksOrder = [
     {
       name: "الطلبات الجديدة",
